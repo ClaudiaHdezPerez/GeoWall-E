@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "Wall-E_UI/1.0.0": {
+        "dependencies": {
+          "G_Sharp": "1.0.0"
+        },
+        "runtime": {
+          "Wall-E_UI.dll": {}
+        }
+      },
+      "G_Sharp/1.0.0": {
+        "runtime": {
+          "G_Sharp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Wall-E_UI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "G_Sharp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

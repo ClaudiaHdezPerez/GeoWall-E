@@ -1,0 +1,22 @@
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.AssemblyInfoInputs.cache
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.AssemblyInfo.cs
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.csproj.CoreCompileInputs.cache
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.deps.json
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.dll
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.pdb
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.dll
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\obj\Debug\net7.0\refint\G_Sharp.dll
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.pdb
+C:\Users\Claudia\Documents\MATCOM\Programación\Mio\Proyectos\Wall-E\G_Sharp\obj\Debug\net7.0\ref\G_Sharp.dll
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.deps.json
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.dll
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.pdb
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.AssemblyInfoInputs.cache
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.AssemblyInfo.cs
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.csproj.CoreCompileInputs.cache
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.dll
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\refint\G_Sharp.dll
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.pdb
+C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\ref\G_Sharp.dll
