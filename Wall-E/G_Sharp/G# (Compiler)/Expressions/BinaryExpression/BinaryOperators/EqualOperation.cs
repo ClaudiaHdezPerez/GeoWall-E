@@ -35,7 +35,6 @@ public class EqualOperation : ExpressionSyntax
 
     public override object Evaluate(Scope scope)
     {
-        //secuencias
         if (SemanticChecker.GetType(Left) == "measure")
         {
             var measure1 = (Measure) Left;

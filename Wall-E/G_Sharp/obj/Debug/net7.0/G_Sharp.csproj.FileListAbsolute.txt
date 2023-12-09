@@ -20,3 +20,14 @@ C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\
 C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\refint\G_Sharp.dll
 C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.pdb
 C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\G_Sharp\obj\Debug\net7.0\ref\G_Sharp.dll
+D:\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.deps.json
+D:\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.dll
+D:\Wall-E\G_Sharp\bin\Debug\net7.0\G_Sharp.pdb
+D:\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.AssemblyInfoInputs.cache
+D:\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.AssemblyInfo.cs
+D:\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.csproj.CoreCompileInputs.cache
+D:\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.dll
+D:\Wall-E\G_Sharp\obj\Debug\net7.0\refint\G_Sharp.dll
+D:\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.pdb
+D:\Wall-E\G_Sharp\obj\Debug\net7.0\ref\G_Sharp.dll

@@ -9,14 +9,8 @@ namespace G_Sharp;
 
 public sealed class InfiniteIntegerSequence : SequenceExpressionSyntax
 {
-    public override object this[int index]
-    {
-        get
-        {
-            return First + index;
-        }
-    }
-
+    public override object this[int index] => First + index;
+    
     public double First { get; }
     private double Last { get; }
 

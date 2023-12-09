@@ -21,3 +21,26 @@ C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\
 C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.pdb
 C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.genruntimeconfig.cache
 C:\Users\joela\OneDrive\Documentos\Joel\C#\Proyecto de Programación III\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\ref\Wall-E_UI.dll
+D:\Wall-E\Wall-E_UI\bin\Debug\net7.0-windows\Wall-E_UI.exe
+D:\Wall-E\Wall-E_UI\bin\Debug\net7.0-windows\Wall-E_UI.deps.json
+D:\Wall-E\Wall-E_UI\bin\Debug\net7.0-windows\Wall-E_UI.runtimeconfig.json
+D:\Wall-E\Wall-E_UI\bin\Debug\net7.0-windows\Wall-E_UI.dll
+D:\Wall-E\Wall-E_UI\bin\Debug\net7.0-windows\Wall-E_UI.pdb
+D:\Wall-E\Wall-E_UI\bin\Debug\net7.0-windows\G_Sharp.dll
+D:\Wall-E\Wall-E_UI\bin\Debug\net7.0-windows\G_Sharp.pdb
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.csproj.AssemblyReference.cache
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\WallE.Form1.resources
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\WallE.OpenWindow.resources
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.Properties.Resources.resources
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.csproj.GenerateResource.cache
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.GeneratedMSBuildEditorConfig.editorconfig
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.AssemblyInfoInputs.cache
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.AssemblyInfo.cs
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.csproj.CoreCompileInputs.cache
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.sourcelink.json
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.csproj.CopyComplete
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.dll
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\refint\Wall-E_UI.dll
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.pdb
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.genruntimeconfig.cache
+D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\ref\Wall-E_UI.dll

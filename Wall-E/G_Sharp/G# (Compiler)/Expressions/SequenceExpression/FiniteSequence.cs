@@ -9,16 +9,8 @@ namespace G_Sharp;
 public sealed class FiniteSequence<T> : SequenceExpressionSyntax
 {
     public List<T> Elements { get; }
-    //public List<object> ElementsEvaluation { get; }
 
-    public override long Count
-    {
-        get
-        {
-            //return ElementsEvaluation.Count;
-            return Elements.Count;
-        }
-    }
+    public override long Count => Elements.Count;
     public override string ValuesType
     {
         get
@@ -28,24 +20,13 @@ public sealed class FiniteSequence<T> : SequenceExpressionSyntax
         }
     }
 
-    public override object this[int index]
-    {
-        //get { return ElementsEvaluation[index]; }
-        get { return Elements[index]!; }
-    }
+    public override object this[int index] => Elements[index]!;
 
     public FiniteSequence(List<T> elements)
     {
         Elements = elements;
-        //ElementsEvaluation = new();
-        //ElementsEvaluation.AddRange(Elements);
     }
 
-    //public FiniteSequence(List<object> elementsEvaluation)
-    //{
-    //    ElementsEvaluation = elementsEvaluation;
-    //    Elements = new();
-    //}
 
     public override object Evaluate(Scope scope)
     {

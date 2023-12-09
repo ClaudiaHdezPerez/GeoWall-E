@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\Wall-E_UI\\Wall-E_UI.csproj": {}
+    "D:\\Wall-E\\Wall-E_UI\\Wall-E_UI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj": {
+    "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj",
+        "projectUniqueName": "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj",
         "projectName": "G_Sharp",
-        "projectPath": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj",
+        "projectPath": "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj",
         "packagesPath": "C:\\Users\\joela\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\obj\\",
+        "outputPath": "D:\\Wall-E\\G_Sharp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -63,14 +63,14 @@
         }
       }
     },
-    "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\Wall-E_UI\\Wall-E_UI.csproj": {
+    "D:\\Wall-E\\Wall-E_UI\\Wall-E_UI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\Wall-E_UI\\Wall-E_UI.csproj",
+        "projectUniqueName": "D:\\Wall-E\\Wall-E_UI\\Wall-E_UI.csproj",
         "projectName": "Wall-E_UI",
-        "projectPath": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\Wall-E_UI\\Wall-E_UI.csproj",
+        "projectPath": "D:\\Wall-E\\Wall-E_UI\\Wall-E_UI.csproj",
         "packagesPath": "C:\\Users\\joela\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\Wall-E_UI\\obj\\",
+        "outputPath": "D:\\Wall-E\\Wall-E_UI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -91,8 +91,8 @@
           "net7.0-windows7.0": {
             "targetAlias": "net7.0-windows",
             "projectReferences": {
-              "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj": {
-                "projectPath": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj"
+              "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj": {
+                "projectPath": "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj"
               }
             }
           }

@@ -82,19 +82,8 @@ public sealed class FunctionExpressionSyntax : ExpressionSyntax
             {
                 if (!Values[i].Check(scope)) 
                     return false;
-                //    string type = SemanticChecker.GetType(Values[i]);
-
-                //    if (!function!.TypeOfParams[i].Contains(type))
-                //    {
-                //        string expectedType = function!.TypeOfParams[i][0];
-                //        string givenType = type;
-                //        Error.SetError("SEMANTIC", $"Line '{functionToken.Line}' : Function '{name}' recieves " +
-                //                $"'{expectedType}', not '{givenType}'");
-                //        return false;
-                //    }
             }
-            //returnType = function.ReturnType;
-            //returnType = SemanticChecker.GetType(func(scope, Values));
+
             return true;
         }
 
@@ -123,12 +112,6 @@ public sealed class FunctionExpressionSyntax : ExpressionSyntax
 
     private Scope GetChildScope(Scope scope, Dictionary<string, Constant> constants)
     {
-        //foreach (var item in scope.Constants.Keys)
-        //{
-        //    if (!constants.ContainsKey(item))
-        //        constants[item] = scope.Constants[item];
-        //}
-
         return new(constants, scope.Functions);
     }
 }

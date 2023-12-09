@@ -49,21 +49,6 @@ public class Scope
         }
     };
 
-    public static readonly Dictionary<string, string> TypeOfReturn = new()
-    {
-        ["line"] = "line",
-        ["segment"] = "segment",
-        ["ray"] = "ray",
-        ["circle"] = "circle",
-        ["measure"] = "measure",
-        ["arc"] = "arc",
-        ["count"] = "number",
-        ["randoms"] = "sequence",
-        ["samples"] = "sequence",
-        ["points"] = "sequence",
-        ["intersect"] = "sequence"
-    };
-
     public Scope(
         Dictionary<string, Constant> constants,
         Dictionary<string, Function> functions
@@ -111,7 +96,6 @@ public sealed class Function
     public int NumberOfParams => Parameters.Count;
     public int NumberOfCalls = 0;
     public bool hasBeenCalled = false;
-    public string ReturnType = "undefined";
     public Function(ExpressionSyntax body, List<ExpressionSyntax> parameters)
     {
         Name = "";
@@ -126,7 +110,6 @@ public sealed class Function
         Body = new ErrorExpressionSyntax();
         TypeOfParams = Scope.TypeOfParams[name];
         Parameters = new();
-        ReturnType = Scope.TypeOfReturn[name];
 
         foreach (var item in Scope.TypeOfParams[name])
         {

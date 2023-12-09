@@ -18,6 +18,7 @@ namespace WallE
         private bool enabledRun = false;
         public static Graphics? graphic;
         public static List<string>? DirectoriesOfFiles = new();
+        private static List<object> result = new();
         private static List<(ExpressionSyntax, Color, string)> Geometries = new();
         private static List<(ExpressionSyntax, Color, string)> Sequences = new();
 
@@ -38,7 +39,7 @@ namespace WallE
 
             try
             {
-                enabledRun = Blender.BlendCompile(text);
+                (result, enabledRun) = Blender.BlendCompile(text);
 
                 if (!enabledRun)
                 {
@@ -82,7 +83,7 @@ namespace WallE
 
             try
             {
-                (Geometries, bool runtimeError) = Blender.BlendRun(text);
+                (Geometries, bool runtimeError) = Blender.BlendRun(result);
 
                 if (!runtimeError)
                 {
@@ -98,9 +99,25 @@ namespace WallE
                         return;
                     }
                 }
+
                 else
                 {
                     Sequences = MethodsDrawing.DrawFigure(Geometries, graphic!);
+
+                    if (Error.Wrong)
+                    {
+                        MessageBoxButtons messageBoxButtons = MessageBoxButtons.RetryCancel;
+
+                        DialogResult result1 = MessageBox.Show(Error.Msg, $"!!{Error.TypeMsg} ERROR",
+                            messageBoxButtons, MessageBoxIcon.Error);
+
+                        if (result1 == DialogResult.Retry)
+                        {
+                            graphic!.Clear(Color.White);
+                            Input.Clear();
+                            return;
+                        }
+                    }
 
                     if (Sequences.Count > 0)
                     {

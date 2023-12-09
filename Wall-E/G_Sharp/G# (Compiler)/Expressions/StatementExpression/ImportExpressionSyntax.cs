@@ -47,7 +47,11 @@ public sealed class ImportExpressionSyntax : ExpressionSyntax
         foreach (var root in SyntaxTree.Root)
         {
             var result = scope.Evaluate(root);
-            obj.Add(result);
+
+            if (result is List<object> list)
+                obj.AddRange(list);
+
+            else obj.Add(result);
         }
 
         return obj;

@@ -31,6 +31,12 @@ public static class MethodsDrawing
         {
             (ExpressionSyntax expression, Color color, string msg) = geometries[i];
 
+            if (expression is null)
+            {
+                Error.SetError("RUNTIME", "'Undefined' is not drawable");
+                return new();
+            }
+
             if (drawings.TryGetValue(expression.Kind, out Action<ExpressionSyntax, Graphics, Color, string>? value))
             {
                 value(expression, graphic, color, msg);

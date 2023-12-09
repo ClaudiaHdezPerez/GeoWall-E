@@ -19,33 +19,9 @@ public static class Blender
         Colors.InitializeColor();
         Error.Reset();
     }
-    public static bool BlendCompile(string text)
+    public static (List<object>, bool) BlendCompile(string text)
     {
         Reset();
-        Dictionary<string, Constant> constants = new();
-        Dictionary<string, Function> functions = new();
-
-        Scope global = new(constants, functions);
-
-        if (string.IsNullOrWhiteSpace(text))
-            return true;
-
-        var syntaxTree = SyntaxTree.Parse(text);
-
-        foreach (var root in syntaxTree.Root)
-        {
-            var checking = global.Check(root);
-            if (!checking) break;
-        }
-
-        return !Error.Wrong;
-    }
-
-    public static (List<(ExpressionSyntax, Color, string)>, bool) BlendRun(string text)
-    {
-        Reset();
-        List<(ExpressionSyntax, Color, string)> Geometries = new();
-
         Dictionary<string, Constant> constants = new();
         Dictionary<string, Function> functions = new();
 
@@ -59,6 +35,9 @@ public static class Blender
 
         foreach (var root in syntaxTree.Root)
         {
+            var checking = global.Check(root);
+            if (!checking) break;
+
             var result = global.Evaluate(root);
 
             if (result is List<object> list)
@@ -67,15 +46,38 @@ public static class Blender
             else obj.Add(result);
         }
 
+
+        if (Error.Wrong)
+        {
+            ErrorMsg = Error.Msg;
+            ErrorType = Error.TypeMsg;
+            return (new(), false);
+        }
+
+
+        return (obj, true);
+    }
+
+    public static (List<(ExpressionSyntax, Color, string)>, bool) BlendRun(List<object> result)
+    {
+        Reset();
+        List<(ExpressionSyntax, Color, string)> Geometries = new();
+
         if (!Error.Wrong)
         {
-            foreach (var result in obj)
+            foreach (var item in result)
             {
-                if (result is Draw geometries)
+                if (item is Draw geometries)
                     Geometries.Add(geometries.Geometries);
             }
 
             return (Geometries, true);
+        }
+
+        if (Error.Wrong)
+        {
+            ErrorMsg = Error.Msg;
+            ErrorType = Error.TypeMsg;
         }
 
         return (new(), false);

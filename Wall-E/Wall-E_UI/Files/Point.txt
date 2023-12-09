@@ -1,3 +1,0 @@
-point p;
-color green;
-draw p;
