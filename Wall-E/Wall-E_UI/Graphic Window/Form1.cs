@@ -18,7 +18,7 @@ namespace WallE
         private bool enabledRun = false;
         public static Graphics? graphic;
         public static List<string>? DirectoriesOfFiles = new();
-        private static List<object> result = new();
+        private static List<Draw> result = new();
         private static List<(ExpressionSyntax, Color, string)> Geometries = new();
         private static List<(ExpressionSyntax, Color, string)> Sequences = new();
 
@@ -37,8 +37,8 @@ namespace WallE
 
             string text = Input.Text.Replace("\t", " ");
 
-            try
-            {
+            //try
+            //{
                 (result, enabledRun) = Blender.BlendCompile(text);
 
                 if (!enabledRun)
@@ -53,19 +53,19 @@ namespace WallE
                         return;
                     }
                 }
-            }
-            catch (Exception)
-            {
-                DialogResult result2 = MessageBox.Show("Exception not detected", "!!COMPILE ERROR",
-                    messageBoxButtons, MessageBoxIcon.Error);
+            //}
+            //catch (Exception)
+            //{
+            //    DialogResult result2 = MessageBox.Show("Exception not detected", "!!COMPILE ERROR",
+            //        messageBoxButtons, MessageBoxIcon.Error);
 
-                if (result2 == DialogResult.Retry)
-                {
-                    graphic.Clear(Color.White);
-                    Input.Clear();
-                    return;
-                }
-            }
+            //    if (result2 == DialogResult.Retry)
+            //    {
+            //        graphic.Clear(Color.White);
+            //        Input.Clear();
+            //        return;
+            //    }
+            //}
         }
 
         private async void Run_Click(object sender, EventArgs e)

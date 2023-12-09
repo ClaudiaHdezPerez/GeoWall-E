@@ -61,14 +61,14 @@ public class SumOperation : ExpressionSyntax
         string leftType = SemanticChecker.GetType(Left);
         string rightType = SemanticChecker.GetType(Right);
 
-        if (leftType == "measure")
+        if (leftType == "measure" && rightType == "measure")
         {
             var leftValue = ((Measure)Left).Value;
             var rightValue = ((Measure)Right).Value;
             return new Measure((float)(leftValue + rightValue));
         }
 
-        else if (leftType == "sequence")
+        else if (leftType == "sequence" && (rightType == "sequence" || Right is null))
         {
             return SumSequenceEvaluate(rightType);
         }

@@ -35,7 +35,10 @@ public class EqualOperation : ExpressionSyntax
 
     public override object Evaluate(Scope scope)
     {
-        if (SemanticChecker.GetType(Left) == "measure")
+        var leftType = SemanticChecker.GetType(Left);
+        var rightType = SemanticChecker.GetType(Right);
+
+        if (leftType == "measure" && rightType == "measure")
         {
             var measure1 = (Measure) Left;
             var measure2 = (Measure) Right;

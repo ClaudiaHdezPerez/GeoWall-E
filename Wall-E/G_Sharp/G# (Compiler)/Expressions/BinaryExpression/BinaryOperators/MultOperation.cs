@@ -74,7 +74,7 @@ public class MultOperation : ExpressionSyntax
             return new Measure((float) (leftValue * rightValue));
         }
 
-        else if (SemanticChecker.GetType(Right) == "measure")
+        else if (rightType == "measure")
         {
             var rightValue = ((Measure)Right).Value;
             var leftValue = Math.Abs(Convert.ToInt32((double) Left));

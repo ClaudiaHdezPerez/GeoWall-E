@@ -31,15 +31,19 @@ public static class MethodsDrawing
         {
             (ExpressionSyntax expression, Color color, string msg) = geometries[i];
 
-            if (expression is null)
+
+            try
             {
-                Error.SetError("RUNTIME", "'Undefined' is not drawable");
-                return new();
+                if (drawings.TryGetValue(expression.Kind, out Action<ExpressionSyntax, Graphics, Color, string>? value))
+                {
+                    value(expression, graphic, color, msg);
+                }
             }
 
-            if (drawings.TryGetValue(expression.Kind, out Action<ExpressionSyntax, Graphics, Color, string>? value))
+            catch
             {
-                value(expression, graphic, color, msg);
+                Error.SetError("RUNTIME", "Expression is not drawable");
+                return new();
             }
         }
 
@@ -81,7 +85,7 @@ public static class MethodsDrawing
         Segment s2 = new(ray.P2, ray.End);
 
         DrawingSegment(s1, graphics, color, msg);
-        DrawingSegment(s2, graphics, color, msg);
+        DrawingSegment(s2, graphics, color, "");
     }
     #endregion
 
@@ -93,9 +97,9 @@ public static class MethodsDrawing
         Segment s2 = new(line.P1, line.P2);
         Segment s3 = new(line.P2, line.End) ;
 
-        DrawingSegment(s1, graphics, color, msg);
+        DrawingSegment(s1, graphics, color, "");
         DrawingSegment(s2, graphics, color, msg);
-        DrawingSegment(s3, graphics, color, msg);
+        DrawingSegment(s3, graphics, color, "");
     }   
     #endregion
 

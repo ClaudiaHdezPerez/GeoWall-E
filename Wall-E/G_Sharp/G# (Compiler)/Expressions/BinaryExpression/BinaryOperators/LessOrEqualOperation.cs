@@ -52,7 +52,7 @@ public class LessOrEqualOperation : ExpressionSyntax
         string leftType = SemanticChecker.GetType(Left);
         string rightType = SemanticChecker.GetType(Right);
 
-        if (leftType == "measure")
+        if (leftType == "measure" && rightType == "measure")
         {
             var measure1 = (Measure)Left;
             var measure2 = (Measure)Right;

@@ -56,7 +56,7 @@ public class RestOperation : ExpressionSyntax
         if (leftType == "undefined" || rightType == "undefined")
             return null!;
 
-        if (leftType == "measure") 
+        if (leftType == "measure" && rightType == "measure") 
         {
             var leftValue = ((Measure)Left).Value;
             var rightValue = ((Measure)Right).Value;

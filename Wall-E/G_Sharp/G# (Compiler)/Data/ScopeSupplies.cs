@@ -43,6 +43,27 @@ public static class ScopeSupplies
         
     }
 
+    internal static object PointFunction(Scope scope, List<ExpressionSyntax> parameters)
+    {
+        try
+        {
+            var x = (double)parameters[0].Evaluate(scope);
+            var y = (double)parameters[1].Evaluate(scope);
+
+            return new Points((float)x, (float)y);
+        }
+
+        catch
+        {
+            string type1 = SemanticChecker.GetType(parameters[0]);
+            string type2 = SemanticChecker.GetType(parameters[1]);
+
+            Error.SetError("SEMANTIC", $"Function 'point' receives '<number, " +
+                            $"number>', not '<{type1}, {type2}>'");
+            return null!;
+        }
+    }
+
     public static object LineFunction(Scope scope, List<ExpressionSyntax> parameters)
     {
         try
@@ -248,4 +269,6 @@ public static class ScopeSupplies
             return null!;
         }
     }
+
+    
 }

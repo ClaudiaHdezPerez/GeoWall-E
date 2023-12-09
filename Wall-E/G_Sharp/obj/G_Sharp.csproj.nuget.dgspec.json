@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj": {}
+    "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj": {}
   },
   "projects": {
-    "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj": {
+    "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj",
+        "projectUniqueName": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj",
         "projectName": "G_Sharp",
-        "projectPath": "D:\\Wall-E\\G_Sharp\\G_Sharp.csproj",
+        "projectPath": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\G_Sharp.csproj",
         "packagesPath": "C:\\Users\\joela\\.nuget\\packages\\",
-        "outputPath": "D:\\Wall-E\\G_Sharp\\obj\\",
+        "outputPath": "C:\\Users\\joela\\OneDrive\\Documentos\\Joel\\C#\\Proyecto de Programación III\\Wall-E\\G_Sharp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

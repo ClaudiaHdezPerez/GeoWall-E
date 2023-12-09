@@ -42,9 +42,17 @@ public sealed class Ray : Figure, IEquatable<Ray>
 
         float y_end = Utilities.PointInLine(M, N, x_end);
 
-        if (M is float.NaN)
+        if (float.IsInfinity(M))
         {
-            y_end = x_end;
+            x_end = p1.X;
+            if (P1.Y <= P2.Y)
+            {
+                y_end = P2.Y + 50000;
+            }
+            else
+            {
+                y_end = P2.Y - 50000;
+            }
         }
 
         End = new Points(x_end, y_end);

@@ -33,15 +33,16 @@ public sealed class Line : Figure, IEquatable<Line>
         (M, N) = Utilities.LineEquation(P1, P2);
 
         float x_start = P1.X - 50000;
-        float x_end = P2.Y + 50000;
-
+        float x_end = P2.X + 50000;
         float y_start = Utilities.PointInLine(M, N, x_start);
         float y_end = Utilities.PointInLine(M, N, x_end);
 
-        if (M is float.NaN)
+        if (float.IsInfinity(M))
         {
-            y_start = x_start;
-            y_end = x_end;
+            x_start = p1.X;
+            x_end = p1.X;
+            y_start = p1.Y - 5000;
+            y_end = p2.Y + 5000;
         }
 
         Start = new Points(x_start, y_start);
@@ -104,11 +105,27 @@ public sealed class Line : Figure, IEquatable<Line>
         if (l1.Equals(l2))
             return null!;
 
-        if (l1.M == l2.M)
+        if (l1.M == l2.M || float.IsInfinity(l1.M) && float.IsInfinity(l2.M))
             return new FiniteSequence<object>(new List<object>());
 
         float x = (l2.N - l1.N) / (l1.M - l2.M);
-        float y = Utilities.PointInLine(l1.M, l1.N, x);
+
+        var m = l1.M;
+        var n = l1.N;
+
+        if (float.IsNaN(x))
+        {
+            if (float.IsInfinity(m))
+            {
+                m = l2.M;
+                n = l2.N;
+                x = l1.P1.X;
+            }
+
+            else x = l2.P1.X;            
+        }
+
+        float y = Utilities.PointInLine(m, n, x);
         Points point = new(x, y);
 
         return new FiniteSequence<object>(new List<object>() { point });

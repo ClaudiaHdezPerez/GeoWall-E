@@ -8,6 +8,8 @@ public class Scope
     public Dictionary<string, Constant> Constants { get; }
     public Dictionary<string, Function> Functions { get; }
 
+    public List<Draw> DrawingObjects = new();
+
     private readonly Dictionary<string, Constant> defaultConstants = new()
     {
         ["PI"]        = new Constant(Math.PI),
@@ -17,6 +19,7 @@ public class Scope
 
     public static readonly Dictionary<string, Func<Scope, List<ExpressionSyntax>, object>> DefaultFunctions = new()
     {
+        ["point"] = ScopeSupplies.PointFunction,
         ["line"] = ScopeSupplies.LineFunction,
         ["segment"] = ScopeSupplies.SegmentFunction,
         ["ray"] = ScopeSupplies.RayFunction,
@@ -32,16 +35,17 @@ public class Scope
 
     public static readonly Dictionary<string, List<List<string>>> TypeOfParams = new()
     {
-        ["line"] = new() { new() { "point" }, new() { "point" } },
-        ["segment"] = new() { new() { "point" }, new() { "point" } },
-        ["ray"] = new() { new() { "point" }, new() { "point" } },
-        ["circle"] = new() { new() { "point" }, new() { "measure" } },
-        ["measure"] = new() { new() { "point" }, new() { "point" } },
-        ["arc"] = new() { new() { "point" }, new() { "point" }, new() { "point" }, new() { "measure" } },
-        ["count"] = new() { new() { "sequence" } },
-        ["randoms"] = new() {  },
-        ["samples"] = new() {  },
-        ["points"] = new() { new() { "point", "circle", "arc", "segment", "ray", "line" } },
+        ["point"]     = new() { new() { "number" }, new() { "number" } },
+        ["line"]      = new() { new() { "point" }, new() { "point" } },
+        ["segment"]   = new() { new() { "point" }, new() { "point" } },
+        ["ray"]       = new() { new() { "point" }, new() { "point" } },
+        ["circle"]    = new() { new() { "point" }, new() { "measure" } },
+        ["measure"]   = new() { new() { "point" }, new() { "point" } },
+        ["arc"]       = new() { new() { "point" }, new() { "point" }, new() { "point" }, new() { "measure" } },
+        ["count"]     = new() { new() { "sequence" } },
+        ["randoms"]   = new() {  },
+        ["samples"]   = new() {  },
+        ["points"]    = new() { new() { "point", "circle", "arc", "segment", "ray", "line" } },
         ["intersect"] = new() 
         { 
             new() { "point", "circle", "arc", "segment", "ray", "line" }, 

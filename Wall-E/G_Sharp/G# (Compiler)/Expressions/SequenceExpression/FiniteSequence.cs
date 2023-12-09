@@ -71,7 +71,7 @@ public sealed class FiniteSequence<T> : SequenceExpressionSyntax
             else
                 elementType = SemanticChecker.GetType(elements[i]);
 
-            if (elementType != type)
+            if (elementType != type && type != "undefined" && elementType != "undefined")
             {
                 Error.SetError("SEMANTIC", $"Elements in sequence must have the same type");
                 return false;

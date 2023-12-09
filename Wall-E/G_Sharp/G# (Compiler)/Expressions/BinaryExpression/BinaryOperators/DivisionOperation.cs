@@ -52,7 +52,7 @@ public class DivisionOperation : ExpressionSyntax
         string leftType = SemanticChecker.GetType(Left);
         string rightType = SemanticChecker.GetType(Right);
 
-        if (leftType == "measure")
+        if (leftType == "measure" && rightType == "measure")
         {
             var leftValue = ((Measure)Left).Value;
             var rightValue = ((Measure)Right).Value;
@@ -60,7 +60,7 @@ public class DivisionOperation : ExpressionSyntax
             return (int)(leftValue / rightValue);
         }
 
-        else if ((double)Right == 0)
+        else if (leftType == "number" && rightType == "number" && (double)Right == 0)
         {
             Error.SetError("SEMANTIC", "Division by '0' is not defined");
             return 0;

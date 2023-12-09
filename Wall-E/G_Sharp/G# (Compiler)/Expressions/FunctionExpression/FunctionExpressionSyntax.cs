@@ -28,7 +28,7 @@ public sealed class FunctionExpressionSyntax : ExpressionSyntax
         if (Scope.DefaultFunctions.TryGetValue(name, out Func<Scope, List<ExpressionSyntax>, object>? func))
             return func(scope, values);
 
-        if (function.NumberOfCalls > 1000)
+        if (function.NumberOfCalls > 1000000)
         {
             Error.SetError("RUNTIME", $"Stack Overflow produced by function '{name}'");
             returnType = "undefined";
@@ -48,6 +48,8 @@ public sealed class FunctionExpressionSyntax : ExpressionSyntax
         Scope child = GetChildScope(scope, constants);
         child.Functions[name].NumberOfCalls++; 
         var evaluation = child.Evaluate(function!.Body);
+
+        scope.DrawingObjects.AddRange(child.DrawingObjects);
 
         return evaluation;
     }

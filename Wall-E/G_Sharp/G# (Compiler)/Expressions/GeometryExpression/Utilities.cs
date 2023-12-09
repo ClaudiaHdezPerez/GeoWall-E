@@ -1,13 +1,21 @@
 ﻿namespace G_Sharp;
-public class Utilities
+public static class Utilities
 {
     public static float PointInLine(float m, float n, float x)
     {
-        return (m * x + n);
+        var result = m * x + n;
+
+        if (float.IsInfinity(m))
+        {
+            result = ParsingSupplies.CreateRandomsCoordinates();
+        }
+
+        return result;
     }
 
     public static (float, float) LineEquation(Points p1, Points p2)
     {
+
         float m = (p1.Y - p2.Y) / (p1.X - p2.X);
         float n = p1.Y - m * p1.X;
 

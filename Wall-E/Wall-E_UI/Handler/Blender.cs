@@ -19,7 +19,7 @@ public static class Blender
         Colors.InitializeColor();
         Error.Reset();
     }
-    public static (List<object>, bool) BlendCompile(string text)
+    public static (List<Draw>, bool) BlendCompile(string text)
     {
         Reset();
         Dictionary<string, Constant> constants = new();
@@ -55,17 +55,17 @@ public static class Blender
         }
 
 
-        return (obj, true);
+        return (global.DrawingObjects, true);
     }
 
-    public static (List<(ExpressionSyntax, Color, string)>, bool) BlendRun(List<object> result)
+    public static (List<(ExpressionSyntax, Color, string)>, bool) BlendRun(List<Draw> drawingObjects)
     {
         Reset();
         List<(ExpressionSyntax, Color, string)> Geometries = new();
 
         if (!Error.Wrong)
         {
-            foreach (var item in result)
+            foreach (var item in drawingObjects)
             {
                 if (item is Draw geometries)
                     Geometries.Add(geometries.Geometries);

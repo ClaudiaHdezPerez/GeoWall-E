@@ -27,6 +27,8 @@ public sealed class LetInExpressionSyntax : ExpressionSyntax
         foreach (var statement in Instructions)
             result = child.Evaluate(statement);
 
+        scope.DrawingObjects.AddRange(child.DrawingObjects);
+
         return result;
     }
 

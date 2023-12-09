@@ -54,7 +54,9 @@ public class Draw : ExpressionSyntax
                 geometries = (val, Color, Msg);
         }
 
-        return new Draw(geometries, Parameters, Color);
+        scope.DrawingObjects.Add(new(geometries, Parameters, Color));
+
+        return "";
     }
 
     public override bool Check(Scope scope)
