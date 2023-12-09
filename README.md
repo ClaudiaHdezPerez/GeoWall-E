@@ -10,3 +10,4 @@ Colaboradores:
 Aplicación desarrollada para plataforma Windows solamente. El proyecto está dividido en una biblioteca de clases 
 que contiene la parte lógica de un compilador con el lenguaje definido G# y la UI en Windows Forms. Para ejecutar 
 la aplicación basta con acceder al .exe
+La biblioteca de clases está dentro de la carpeta G_Sharp y la UI en Wall-E_UI.
