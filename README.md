@@ -3,6 +3,7 @@
 
 Colaboradores:
 > Joel Aparicio Tamayo     C-113    Joel0347
+
 > Claudia Hernández Pérez  C-113    ClaudiaHdezPerez
 
 # GeoWall-E
