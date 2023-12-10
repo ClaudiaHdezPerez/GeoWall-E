@@ -14,14 +14,22 @@ public static class Blender
     public static string ErrorType = "";
     public static string ErrorMsg = "";
 
+    #region Resetear
+    // Método para resetear los campos estáticos 
     public static void Reset()
     {
         Colors.InitializeColor();
         Error.Reset();
     }
+    #endregion
+
+    #region Compilar
+    // Método para relacionar la UI con el compilador para obtener la lista de objetos a dibujar
     public static (List<Draw>, bool) BlendCompile(string text)
     {
         Reset();
+
+        // Se crean los diccionarios necesarios para crear el scope global
         Dictionary<string, Constant> constants = new();
         Dictionary<string, Function> functions = new();
 
@@ -30,20 +38,16 @@ public static class Blender
         if (string.IsNullOrWhiteSpace(text))
             return (new(), true);
 
+        // Se parsea el texto en el textBox y se devuelve en una estructura en forma de árbol
         var syntaxTree = SyntaxTree.Parse(text);
-        List<object> obj = new();
 
+        // Cada "rama" fue clasificada por un tipo de expresión y es chequeada para luego evaluarse
         foreach (var root in syntaxTree.Root)
         {
             var checking = global.Check(root);
             if (!checking) break;
 
-            var result = global.Evaluate(root);
-
-            if (result is List<object> list)
-                obj.AddRange(list);
-
-            else obj.Add(result);
+            global.Evaluate(root);
         }
 
 
@@ -57,29 +61,5 @@ public static class Blender
 
         return (global.DrawingObjects, true);
     }
-
-    public static (List<(ExpressionSyntax, Color, string)>, bool) BlendRun(List<Draw> drawingObjects)
-    {
-        Reset();
-        List<(ExpressionSyntax, Color, string)> Geometries = new();
-
-        if (!Error.Wrong)
-        {
-            foreach (var item in drawingObjects)
-            {
-                if (item is Draw geometries)
-                    Geometries.Add(geometries.Geometries);
-            }
-
-            return (Geometries, true);
-        }
-
-        if (Error.Wrong)
-        {
-            ErrorMsg = Error.Msg;
-            ErrorType = Error.TypeMsg;
-        }
-
-        return (new(), false);
-    }
+    #endregion
 }

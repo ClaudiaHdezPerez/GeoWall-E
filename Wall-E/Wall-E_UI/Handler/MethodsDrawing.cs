@@ -12,7 +12,7 @@ using Microsoft.VisualBasic.Devices;
 namespace WallE;
 public static class MethodsDrawing
 {
-    private static List<(ExpressionSyntax, Color, string)> Sequences = new();
+    private static List<Draw> Sequences = new();
 
     private static Dictionary<SyntaxKind, Action<ExpressionSyntax, Graphics, Color, string>> drawings = new()
     {
@@ -24,12 +24,12 @@ public static class MethodsDrawing
         [SyntaxKind.ArcToken] = DrawingArc,
         [SyntaxKind.SequenceExpression] = DrawingSequence,
     };
-    public static List<(ExpressionSyntax, Color, string)> DrawFigure(List<(ExpressionSyntax, Color, string)> geometries, Graphics graphic)
+    public static List<Draw> DrawFigure(List<Draw> geometries, Graphics graphic)
     {
         Sequences = new();
         for (int i = 0; i < geometries.Count; i++)
         {
-            (ExpressionSyntax expression, Color color, string msg) = geometries[i];
+            (ExpressionSyntax expression, Color color, string msg) = geometries[i].Geometries;
 
 
             try
@@ -184,7 +184,11 @@ public static class MethodsDrawing
         var sequence = (InfiniteSequence)expression;
 
         var figure = (ExpressionSyntax)sequence[0];
-        Sequences.Add((sequence.RestOfSequence(1), color, msg));
+        var drawToken = new SyntaxToken(SyntaxKind.DrawKeyword,0, 0, "draw", "");
+        var rest = sequence.RestOfSequence(1);
+        var draw = new Draw(drawToken, rest, color, msg);
+        //Sequences.Add((sequence.RestOfSequence(1), color, msg));
+        Sequences.Add(draw);
 
         if (drawings.TryGetValue(figure.Kind, out Action<ExpressionSyntax, Graphics, Color, string>? value))
         {

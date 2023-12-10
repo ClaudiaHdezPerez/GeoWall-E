@@ -20,7 +20,7 @@ namespace WallE
         public static List<string>? DirectoriesOfFiles = new();
         private static List<Draw> result = new();
         private static List<(ExpressionSyntax, Color, string)> Geometries = new();
-        private static List<(ExpressionSyntax, Color, string)> Sequences = new();
+        private static List<Draw> Sequences = new();
 
         public Form1()
         {
@@ -37,8 +37,8 @@ namespace WallE
 
             string text = Input.Text.Replace("\t", " ");
 
-            //try
-            //{
+            try
+            {
                 (result, enabledRun) = Blender.BlendCompile(text);
 
                 if (!enabledRun)
@@ -53,19 +53,19 @@ namespace WallE
                         return;
                     }
                 }
-            //}
-            //catch (Exception)
-            //{
-            //    DialogResult result2 = MessageBox.Show("Exception not detected", "!!COMPILE ERROR",
-            //        messageBoxButtons, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                DialogResult result2 = MessageBox.Show("Exception not detected", "!!COMPILE ERROR",
+                    messageBoxButtons, MessageBoxIcon.Error);
 
-            //    if (result2 == DialogResult.Retry)
-            //    {
-            //        graphic.Clear(Color.White);
-            //        Input.Clear();
-            //        return;
-            //    }
-            //}
+                if (result2 == DialogResult.Retry)
+                {
+                    graphic.Clear(Color.White);
+                    Input.Clear();
+                    return;
+                }
+            }
         }
 
         private async void Run_Click(object sender, EventArgs e)
@@ -83,26 +83,26 @@ namespace WallE
 
             try
             {
-                (Geometries, bool runtimeError) = Blender.BlendRun(result);
+                //(Geometries, bool runtimeError) = Blender.BlendRun(result);
 
-                if (!runtimeError)
-                {
-                    MessageBoxButtons messageBoxButtons = MessageBoxButtons.RetryCancel;
+                //if (!runtimeError)
+                //{
+                //    MessageBoxButtons messageBoxButtons = MessageBoxButtons.RetryCancel;
 
-                    DialogResult result1 = MessageBox.Show(Blender.ErrorMsg, $"!!{Blender.ErrorType} ERROR",
-                        messageBoxButtons, MessageBoxIcon.Error);
+                //    DialogResult result1 = MessageBox.Show(Blender.ErrorMsg, $"!!{Blender.ErrorType} ERROR",
+                //        messageBoxButtons, MessageBoxIcon.Error);
 
-                    if (result1 == DialogResult.Retry)
-                    {
-                        graphic!.Clear(Color.White);
-                        Input.Clear();
-                        return;
-                    }
-                }
+                //    if (result1 == DialogResult.Retry)
+                //    {
+                //        graphic!.Clear(Color.White);
+                //        Input.Clear();
+                //        return;
+                //    }
+                //}
 
-                else
-                {
-                    Sequences = MethodsDrawing.DrawFigure(Geometries, graphic!);
+                //else
+                //{
+                    Sequences = MethodsDrawing.DrawFigure(result, graphic!);
 
                     if (Error.Wrong)
                     {
@@ -130,7 +130,7 @@ namespace WallE
                             await Task.Delay(3);
                         }
                     }
-                }
+                //}
             }
             catch (Exception)
             {
@@ -170,87 +170,87 @@ namespace WallE
         #region Botones de movimiento
         private void MoveRight_Click(object sender, EventArgs e)
         {
-            if (Geometries is not null && Geometries.Count > 0)
+            if (result is not null && result.Count > 0)
             {
                 graphic!.TranslateTransform(-50, 0);
 
                 graphic.Clear(Color.White);
 
-                MethodsDrawing.DrawFigure(Geometries, graphic);
+                MethodsDrawing.DrawFigure(result, graphic);
             }
         }
 
 
         private void MoveLeft_Click(object sender, EventArgs e)
         {
-            if (Geometries is not null && Geometries.Count > 0)
+            if (result is not null && result.Count > 0)
             {
                 graphic!.TranslateTransform(50, 0);
 
                 graphic.Clear(Color.White);
 
-                MethodsDrawing.DrawFigure(Geometries, graphic);
+                MethodsDrawing.DrawFigure(result, graphic);
             }
         }
 
 
         private void MoveUp_Click(object sender, EventArgs e)
         {
-            if (Geometries is not null && Geometries.Count > 0)
+            if (result is not null && result.Count > 0)
             {
                 graphic!.TranslateTransform(0, 50);
 
                 graphic.Clear(Color.White);
 
-                MethodsDrawing.DrawFigure(Geometries, graphic);
+                MethodsDrawing.DrawFigure(result, graphic);
             }
         }
 
         private void MoveDown_Click(object sender, EventArgs e)
         {
-            if (Geometries is not null && Geometries.Count > 0)
+            if (result is not null && result.Count > 0)
             {
                 graphic!.TranslateTransform(0, -50);
 
                 graphic.Clear(Color.White);
 
-                MethodsDrawing.DrawFigure(Geometries, graphic);
+                MethodsDrawing.DrawFigure(result, graphic);
             }
         }
 
         private void Reset_Click(object sender, EventArgs e)
         {
-            if (Geometries is not null && Geometries.Count > 0)
+            if (result is not null && result.Count > 0)
             {
                 graphic!.ResetTransform();
 
                 graphic.Clear(Color.White);
 
-                MethodsDrawing.DrawFigure(Geometries, graphic);
+                MethodsDrawing.DrawFigure(result, graphic);
             }
         }
 
         private void ZoomPlus_Click(object sender, EventArgs e)
         {
-            if (Geometries is not null && Geometries.Count > 0)
+            if (result is not null && result.Count > 0)
             {
                 graphic!.ScaleTransform(1.2F, 1.2F);
 
                 graphic.Clear(Color.White);
 
-                MethodsDrawing.DrawFigure(Geometries, graphic);
+                MethodsDrawing.DrawFigure(result, graphic);
             }
         }
 
         private void ZoomMinus_Click(object sender, EventArgs e)
         {
-            if (Geometries is not null && Geometries.Count > 0)
+            if (result is not null && result.Count > 0)
             {
                 graphic!.ScaleTransform(0.8F, 0.8F);
 
                 graphic.Clear(Color.White);
 
-                MethodsDrawing.DrawFigure(Geometries, graphic);
+                MethodsDrawing.DrawFigure(result, graphic);
             }
         }
         #endregion
