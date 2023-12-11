@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación Mayor o igual
 public class GreaterOrEqualOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -14,6 +15,7 @@ public class GreaterOrEqualOperation : ExpressionSyntax
         "number", "measure", "undefined"
     };
 
+    // Constructor
     public GreaterOrEqualOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -21,6 +23,7 @@ public class GreaterOrEqualOperation : ExpressionSyntax
         OperationToken = operationToken;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -47,6 +50,7 @@ public class GreaterOrEqualOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -72,3 +76,5 @@ public class GreaterOrEqualOperation : ExpressionSyntax
         }
     }
 }
+
+#endregion

@@ -3,6 +3,7 @@ using System.Reflection.Metadata;
 
 namespace G_Sharp;
 
+#region Objecto Scope
 public class Scope
 {
     public Dictionary<string, Constant> Constants { get; }
@@ -10,6 +11,7 @@ public class Scope
 
     public List<Draw> DrawingObjects = new();
 
+    // Constantes por defecto
     private readonly Dictionary<string, Constant> defaultConstants = new()
     {
         ["PI"]        = new Constant(Math.PI),
@@ -17,6 +19,7 @@ public class Scope
         ["undefined"] = new Constant(null!)
     };
 
+    // Funciones por defecto
     public static readonly Dictionary<string, Func<Scope, List<ExpressionSyntax>, object>> DefaultFunctions = new()
     {
         ["point"] = ScopeSupplies.PointFunction,
@@ -33,6 +36,7 @@ public class Scope
         ["intersect"] = ScopeSupplies.IntersectFunction
     };
 
+    // Tipos de retorno por defecto
     public static readonly Dictionary<string, List<List<string>>> TypeOfParams = new()
     {
         ["point"]     = new() { new() { "number" }, new() { "number" } },
@@ -53,6 +57,7 @@ public class Scope
         }
     };
 
+    // Constructor
     public Scope(
         Dictionary<string, Constant> constants,
         Dictionary<string, Function> functions
@@ -79,6 +84,11 @@ public class Scope
     }
 }
 
+#endregion
+
+#region Objecto Constant
+
+// Objeto que se guarda en el scope
 public sealed class Constant 
 {
     public object Expression { get; }
@@ -91,6 +101,11 @@ public sealed class Constant
 
 }
 
+#endregion
+
+#region Objeto Function
+
+// Objeto que se guarda en el scope
 public sealed class Function 
 {
     public string Name { get; }
@@ -121,4 +136,6 @@ public sealed class Function
         }
     }
 }
+
+#endregion
 

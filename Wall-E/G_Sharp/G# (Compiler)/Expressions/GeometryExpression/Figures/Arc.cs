@@ -14,6 +14,9 @@ public sealed class Arc : Figure, IEquatable<Arc>
         [SyntaxKind.ArcToken] = IntersectArc,
     };
     public override SyntaxKind Kind => SyntaxKind.ArcToken;
+    public override string ReturnType => "arc";
+
+    #region Constructor de la clase Arc
     public Points Center { get; }
     public Points PointRay1 { get; }
     public Points PointRay2 { get; }
@@ -24,7 +27,6 @@ public sealed class Arc : Figure, IEquatable<Arc>
     public float SweepAngle { get; }
     public Points IntersectionCircleRay1 { get; }
     public Points IntersectionCircleRay2 { get; }
-    public override string ReturnType => "arc";
 
     public Arc(Points center, Points left, Points right, Measure measure)
     {
@@ -35,25 +37,6 @@ public sealed class Arc : Figure, IEquatable<Arc>
 
         (StartAngle, SweepAngle, IntersectionCircleRay1, IntersectionCircleRay2) = Components();
     }
-
-    public override object Evaluate(Scope scope)
-    {
-        return this;
-    }
-
-    public override bool Check(Scope scope)
-    {
-        return true;
-    }
-
-    public bool Equals(Arc? other)
-    {
-        var sameAngle = SweepAngle == other!.SweepAngle;
-        return sameAngle && Measure.Equals(other.Measure);
-    }
-
-    public override bool Equals(object? obj) => Equals(obj as Arc);
-    public override int GetHashCode() => Center.GetHashCode();
 
     private (float, float, Points, Points) Components()
     {
@@ -118,6 +101,33 @@ public sealed class Arc : Figure, IEquatable<Arc>
         return (startAngle, sweepAngle, point_left, point_right);
     }
 
+    #endregion
+
+    #region Evaluación
+    public override object Evaluate(Scope scope)
+    {
+        return this;
+    }
+    #endregion
+
+    #region Revisión
+    public override bool Check(Scope scope)
+    {
+        return true;
+    }
+    #endregion
+
+    #region Implementación de la interfaz IEquatable
+    public override bool Equals(object? obj) => Equals(obj as Arc);
+    public override int GetHashCode() => Center.GetHashCode();
+    public bool Equals(Arc? other)
+    {
+        var sameAngle = SweepAngle == other!.SweepAngle;
+        return sameAngle && Measure.Equals(other.Measure);
+    }
+    #endregion
+
+    #region Implementación de la interfaz IFigure
     public override SequenceExpressionSyntax PointsInFigure()
     {
         Dictionary<int, object> elements = new();
@@ -205,5 +215,5 @@ public sealed class Arc : Figure, IEquatable<Arc>
 
         return new FiniteSequence<object>(list);
     }
+    #endregion
 }
-

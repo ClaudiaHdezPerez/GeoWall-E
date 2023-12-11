@@ -4,32 +4,53 @@ namespace G_Sharp;
 public static class ParsingSupplies
 {
 
+    #region Precedencia de operadores
+
     private static readonly Dictionary<SyntaxKind, int> binaryOperatorPrecedence = new()
     {
-        [SyntaxKind.AndKeyword]           = 1,
-        [SyntaxKind.OrKeyword]            = 1,
-        [SyntaxKind.EqualToken]           = 3,
-        [SyntaxKind.DifferentToken]       = 3,
-        [SyntaxKind.GreaterToken]         = 2,
-        [SyntaxKind.LessToken]            = 2,
-        [SyntaxKind.GreaterOrEqualToken]  = 2,
-        [SyntaxKind.LessOrEqualToken]     = 2,
-        [SyntaxKind.MultToken]            = 6,
-        [SyntaxKind.DivisionToken]        = 6,
-        [SyntaxKind.ModToken]             = 6,
-        [SyntaxKind.PlusToken]            = 5,
-        [SyntaxKind.MinusToken]           = 5
+        [SyntaxKind.AndKeyword]           = 10,
+        [SyntaxKind.OrKeyword]            = 10,
+        [SyntaxKind.EqualToken]           = 30,
+        [SyntaxKind.DifferentToken]       = 30,
+        [SyntaxKind.GreaterToken]         = 20,
+        [SyntaxKind.LessToken]            = 20,
+        [SyntaxKind.GreaterOrEqualToken]  = 20,
+        [SyntaxKind.LessOrEqualToken]     = 20,
+        [SyntaxKind.MultToken]            = 60,
+        [SyntaxKind.DivisionToken]        = 60,
+        [SyntaxKind.ModToken]             = 60,
+        [SyntaxKind.PlusToken]            = 50,
+        [SyntaxKind.MinusToken]           = 50
     };
 
     private static readonly Dictionary<SyntaxKind, int> unaryOperatorPrecedence = new()
     {
-        [SyntaxKind.NotKeyword] = 4,
-        [SyntaxKind.PlusToken]  = 7,
-        [SyntaxKind.MinusToken] = 7
+        [SyntaxKind.NotKeyword] = 40,
+        [SyntaxKind.PlusToken]  = 70,
+        [SyntaxKind.MinusToken] = 70
     };
 
-    
-    public static Dictionary<string, Func<SyntaxToken, SyntaxToken, ExpressionSyntax>> GeometricKeywordsEvaluation = new()
+    public static int GetBinaryOperatorPrecedence(this SyntaxKind kind)
+    {
+        if (binaryOperatorPrecedence.TryGetValue(kind, out int value))
+            return value;
+
+        return 0;
+    }
+
+    public static int GetUnaryOperatorPrecedence(this SyntaxKind kind)
+    {
+        if (unaryOperatorPrecedence.TryGetValue(kind, out int value))
+            return value;
+
+        return 0;
+    }
+
+    #endregion
+
+    #region Parsing de expresiones geométricas
+
+    public static Dictionary<string, Func<SyntaxToken, SyntaxToken, ExpressionSyntax>> GeometricKeywordsParsing = new()
     {
         ["point"]   = PointParsing,
         ["line"]    = LineParsing,
@@ -51,6 +72,9 @@ public static class ParsingSupplies
         ["arc"]     = () => new Arc(CreateRandomPoint(), CreateRandomPoint(), CreateRandomPoint(), CreateRandomMeasure())
     };
 
+    #endregion
+
+    #region Creación de objetos randoms
     public static float CreateRandomsCoordinates(int start = 50, int end = 900)
     {
         Random random = new();
@@ -80,12 +104,19 @@ public static class ParsingSupplies
         return points;
     }
 
+    #endregion
+
+
+    #region Parsing de objetos geométricos
+
+    // Puntos
     private static ExpressionSyntax PointParsing(SyntaxToken name, SyntaxToken operatorToken)
     {
         var point = CreateRandomPoints(1);
         return new ConstantAssignmentSyntax(name, operatorToken, point[0]);
     }
 
+    // Segmentos
     private static ExpressionSyntax SegmentParsing(SyntaxToken name, SyntaxToken operatorToken)
     {   
         var points = CreateRandomPoints(2);
@@ -93,6 +124,7 @@ public static class ParsingSupplies
         return new ConstantAssignmentSyntax(name, operatorToken, segment);
     }
 
+    // Líneas
     private static ExpressionSyntax LineParsing(SyntaxToken name, SyntaxToken operatorToken)
     {   
         var points = CreateRandomPoints(2);
@@ -100,6 +132,7 @@ public static class ParsingSupplies
         return new ConstantAssignmentSyntax(name, operatorToken, segment);
     }
 
+    // Rayos
     private static ExpressionSyntax RayParsing(SyntaxToken name, SyntaxToken operatorToken)
     {   
         var points = CreateRandomPoints(2);
@@ -107,6 +140,7 @@ public static class ParsingSupplies
         return new ConstantAssignmentSyntax(name, operatorToken, segment);
     }
 
+    // Medidas
     private static ExpressionSyntax MeasureParsing(SyntaxToken name, SyntaxToken operatorToken)
     {
         var points = CreateRandomPoints(2);
@@ -114,6 +148,7 @@ public static class ParsingSupplies
         return new ConstantAssignmentSyntax(name, operatorToken, measure);
     }
 
+    // Circunferencias
     private static ExpressionSyntax CircleParsing(SyntaxToken name, SyntaxToken operatorToken)
     {   
         var points = CreateRandomPoints(2);
@@ -123,6 +158,7 @@ public static class ParsingSupplies
         return new ConstantAssignmentSyntax(name, operatorToken, circle);
     }
 
+    // Arcos
     private static ExpressionSyntax ArcParsing(SyntaxToken name, SyntaxToken operatorToken)
     {   
         var points = CreateRandomPoints(4);
@@ -132,22 +168,9 @@ public static class ParsingSupplies
         return new ConstantAssignmentSyntax(name, operatorToken, arc);
     }
 
-    public static int GetBinaryOperatorPrecedence(this SyntaxKind kind)
-    {
-        if (binaryOperatorPrecedence.TryGetValue(kind, out int value))
-            return value;
+    #endregion
 
-        return 0;
-    }
-
-    public static int GetUnaryOperatorPrecedence(this SyntaxKind kind)
-    {
-        if (unaryOperatorPrecedence.TryGetValue(kind, out int value))
-            return value;
-
-        return 0;
-    }
-
+    #region Parsing Strings con caracteres de escape
     // Metodo que evalua los slash en el string
     public static string BackSlashEval(string text, int line)
     {
@@ -197,5 +220,7 @@ public static class ParsingSupplies
 
         return text;
     }
+
+    #endregion
 
 }

@@ -31,3 +31,6 @@ D:\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.dll
 D:\Wall-E\G_Sharp\obj\Debug\net7.0\refint\G_Sharp.dll
 D:\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.pdb
 D:\Wall-E\G_Sharp\obj\Debug\net7.0\ref\G_Sharp.dll
+C:\Users\Claudia\Documents\GitHub\GeoWall-E\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.dll
+C:\Users\Claudia\Documents\GitHub\GeoWall-E\Wall-E\G_Sharp\obj\Debug\net7.0\refint\G_Sharp.dll
+C:\Users\Claudia\Documents\GitHub\GeoWall-E\Wall-E\G_Sharp\obj\Debug\net7.0\G_Sharp.pdb

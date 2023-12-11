@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Wall-E_UI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65bd55dee71c82b77943bac5bf0f86969a02fcbc")]
 [assembly: System.Reflection.AssemblyProductAttribute("Wall-E_UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Wall-E_UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

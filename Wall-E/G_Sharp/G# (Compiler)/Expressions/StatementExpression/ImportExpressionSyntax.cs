@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace G_Sharp;
 
+#region Import
 public sealed class ImportExpressionSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.ImportKeyword;
 
     public override string ReturnType => "void expression";
 
+    #region Constructor
     public SyntaxToken ImportToken { get; }
     public SyntaxTree SyntaxTree { get; }
 
@@ -21,6 +23,9 @@ public sealed class ImportExpressionSyntax : ExpressionSyntax
         SyntaxTree = syntaxTree;
     }
 
+    #endregion
+
+    // Revisión
     public override bool Check(Scope scope)
     {
         if (!SemanticChecker.canImport) 
@@ -40,6 +45,8 @@ public sealed class ImportExpressionSyntax : ExpressionSyntax
         return true;
     }
 
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         List<object> obj = new();
@@ -57,3 +64,5 @@ public sealed class ImportExpressionSyntax : ExpressionSyntax
         return obj;
     }
 }
+
+#endregion

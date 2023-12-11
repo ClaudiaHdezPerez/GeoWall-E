@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación Módulo
 public class ModOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -14,6 +15,7 @@ public class ModOperation : ExpressionSyntax
         "number", "undefined"
     };
 
+    // Constructor
     public ModOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -21,6 +23,7 @@ public class ModOperation : ExpressionSyntax
         OperationToken = operationToken;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -36,6 +39,7 @@ public class ModOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -61,3 +65,5 @@ public class ModOperation : ExpressionSyntax
             return null!; }
         }
 }
+
+#endregion

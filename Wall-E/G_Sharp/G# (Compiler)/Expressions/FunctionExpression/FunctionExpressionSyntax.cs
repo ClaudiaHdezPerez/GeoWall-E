@@ -2,15 +2,19 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace G_Sharp;
 
+#region LLamado de funciones
 public sealed class FunctionExpressionSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.FunctionExpression;
+    private string returnType = "undefined";
+    public override string ReturnType => returnType;
+
+    #region Constructor
 
     public SyntaxToken IdentifierToken { get; }
     public List<ExpressionSyntax> Values { get; }
 
-    private string returnType = "undefined";
-    public override string ReturnType => returnType;
+    
 
     public FunctionExpressionSyntax(SyntaxToken identifierToken, List<ExpressionSyntax> values)
     {
@@ -18,6 +22,9 @@ public sealed class FunctionExpressionSyntax : ExpressionSyntax
         Values = values;
     }
 
+    #endregion
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         var functionToken = IdentifierToken;
@@ -54,6 +61,7 @@ public sealed class FunctionExpressionSyntax : ExpressionSyntax
         return evaluation;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         var functionToken = IdentifierToken;
@@ -112,8 +120,11 @@ public sealed class FunctionExpressionSyntax : ExpressionSyntax
         return check;
     }
 
+    // Crear scope interno
     private Scope GetChildScope(Scope scope, Dictionary<string, Constant> constants)
     {
         return new(constants, scope.Functions);
     }
 }
+
+#endregion

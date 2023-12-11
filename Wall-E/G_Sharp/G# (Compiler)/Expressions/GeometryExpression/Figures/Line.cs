@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace G_Sharp;
 
+#region Line
 public sealed class Line : Figure, IEquatable<Line>
 {
     private static readonly Dictionary<SyntaxKind, Func<Figure, Figure, FiniteSequence<object>>> intersections = new()
@@ -18,13 +19,16 @@ public sealed class Line : Figure, IEquatable<Line>
     };
 
     public override SyntaxKind Kind => SyntaxKind.LineToken;
+    public override string ReturnType => "line";
+
+    #region Constructor
     public Points P1 { get; }
     public Points P2 { get; }
     public Points Start { get; }
     public Points End { get; }
     public float M { get; }
     public float N { get; }
-    public override string ReturnType => "line";
+    
 
     public Line(Points p1, Points p2)
     {
@@ -49,16 +53,21 @@ public sealed class Line : Figure, IEquatable<Line>
         End = new Points(x_end, y_end); 
     }
 
+    #endregion
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         return this;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         return true;
     }
 
+    // Redefinición de equals
     public bool Equals(Line? other)
     {
         return M.Equals(other!.M) && N.Equals(other!.N);
@@ -67,6 +76,7 @@ public sealed class Line : Figure, IEquatable<Line>
     public override bool Equals(object? obj) => Equals(obj as Line);
     public override int GetHashCode() => P1.GetHashCode();
 
+    // Puntos en la línea
     public override SequenceExpressionSyntax PointsInFigure()
     {
         Dictionary<int, object> elements = new();
@@ -92,6 +102,7 @@ public sealed class Line : Figure, IEquatable<Line>
         return result;
     }
 
+    #region Intersección
     public override FiniteSequence<object> Intersect(Figure figure)
     {
         return intersections[figure.Kind](this, figure);
@@ -217,4 +228,8 @@ public sealed class Line : Figure, IEquatable<Line>
 
         return new FiniteSequence<object>(list);
     }
+
+    #endregion
 }
+
+#endregion

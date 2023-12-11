@@ -4,6 +4,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace G_Sharp;
 
+#region Interface que caracteriza todas las expresiones del programa
 public abstract class ExpressionSyntax 
 {
     public abstract SyntaxKind Kind { get; }
@@ -12,6 +13,10 @@ public abstract class ExpressionSyntax
     public abstract bool Check(Scope scope);
 }
 
+#endregion
+
+
+// Objeto que permite devolver errores
 public sealed class ErrorExpressionSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.ErrorToken;

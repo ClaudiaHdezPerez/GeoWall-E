@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace G_Sharp;
+
+#region Revisión
 public static class SemanticChecker
 {
     public static bool canImport = true;
@@ -23,6 +25,7 @@ public static class SemanticChecker
         return node.Check(scope);
     }
 
+    // Obtener el tipo de una expresión
     public static string GetType(object obj)
     {
         return obj switch
@@ -35,4 +38,6 @@ public static class SemanticChecker
         };
     }
 }
+
+#endregion
 

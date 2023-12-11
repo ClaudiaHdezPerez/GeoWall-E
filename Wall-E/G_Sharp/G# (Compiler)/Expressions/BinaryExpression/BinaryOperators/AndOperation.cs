@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación And
 public class AndOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -9,6 +10,7 @@ public class AndOperation : ExpressionSyntax
     public object Right { get; }
     public SyntaxToken OperationToken { get; }
 
+    // Constructor
     public AndOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -16,11 +18,13 @@ public class AndOperation : ExpressionSyntax
         OperationToken = operationToken;
     }
 
+    // Revisión (siempre true)
     public override bool Check(Scope scope)
     {
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         var leftType = SemanticChecker.GetType(Left);
@@ -47,3 +51,5 @@ public class AndOperation : ExpressionSyntax
         return (leftIsFalse || rightIsFalse) ? 0 : 1;
     }
 }
+
+#endregion

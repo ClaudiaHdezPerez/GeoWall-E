@@ -2,14 +2,18 @@ using System.Xml.Linq;
 
 namespace G_Sharp;
 
+#region Asignación de funciones
 public sealed class AssignmentFunctionSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.AssignmentFunctionExpression;
+    public override string ReturnType => "void expression";
+
+    #region  Constructor
     public SyntaxToken FunctionIdentifierToken { get; }
     public List<ExpressionSyntax> IdentifiersToken { get; }
     public SyntaxToken AssignmentToken { get; }
     public ExpressionSyntax Expression { get; }
-    public override string ReturnType => "void expression";
+    
 
     public AssignmentFunctionSyntax(
         SyntaxToken functionIdentifierToken, List<ExpressionSyntax> identifiersToken,
@@ -22,11 +26,15 @@ public sealed class AssignmentFunctionSyntax : ExpressionSyntax
         Expression = expression;
     }
 
+    #endregion
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         return "";
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string name = FunctionIdentifierToken.Text;
@@ -46,3 +54,5 @@ public sealed class AssignmentFunctionSyntax : ExpressionSyntax
         return true;
     }
 }
+
+#endregion

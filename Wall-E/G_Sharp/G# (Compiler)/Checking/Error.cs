@@ -6,6 +6,7 @@ public static class Error
     public static string Msg = "";
     public static string TypeMsg = "";
 
+    // Setear errores
     public static void SetError(string type, string msg)
     {
         if (Wrong) return;
@@ -14,6 +15,7 @@ public static class Error
         TypeMsg = type;
     }
 
+    // Resetear programa
     public static void Reset()
     {
         Wrong = false;

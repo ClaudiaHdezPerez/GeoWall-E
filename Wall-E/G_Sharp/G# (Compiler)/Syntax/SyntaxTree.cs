@@ -1,4 +1,6 @@
 namespace G_Sharp;
+
+#region Árbol sintáctico
 public sealed class SyntaxTree
 {
     public bool Error { get; }
@@ -23,3 +25,5 @@ public sealed class SyntaxTree
         return parser.Parse();
     }
 }
+
+#endregion

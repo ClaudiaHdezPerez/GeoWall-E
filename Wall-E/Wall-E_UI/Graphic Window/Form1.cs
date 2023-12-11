@@ -19,7 +19,6 @@ namespace WallE
         public static Graphics? graphic;
         public static List<string>? DirectoriesOfFiles = new();
         private static List<Draw> result = new();
-        private static List<(ExpressionSyntax, Color, string)> Geometries = new();
         private static List<Draw> Sequences = new();
 
         public Form1()
@@ -28,17 +27,20 @@ namespace WallE
         }
 
         #region Compilar y correr
+
+        // Este método se llama cuando se ejecuta el evento "click" del botón "Compile"
         private void Compile_Click(object sender, EventArgs e)
         {
             graphic = Grapher.CreateGraphics();
             graphic.Clear(Color.White);
-            Geometries = new();
             MessageBoxButtons messageBoxButtons = MessageBoxButtons.RetryCancel;
 
             string text = Input.Text.Replace("\t", " ");
 
             try
             {
+                // Se obtiene la lista de objetos a dibujar y un bool que determina si la entrada estuvo correcta 
+                // tanto léxica, sintáctica como semántica
                 (result, enabledRun) = Blender.BlendCompile(text);
 
                 if (!enabledRun)
@@ -68,8 +70,10 @@ namespace WallE
             }
         }
 
+        // Este método se llama cuando se ejecuta el evento "click" del botón "Run"
         private async void Run_Click(object sender, EventArgs e)
         {
+            // Se verifica que ya se haya comiplado y que haya sido correcto
             if (!enabledRun)
             {
                 MessageBoxButtons messageBoxButtons = MessageBoxButtons.OK;
@@ -79,58 +83,39 @@ namespace WallE
                 return;
             }
 
-            string text = Input.Text.Replace("\t", " ");
-
             try
             {
-                //(Geometries, bool runtimeError) = Blender.BlendRun(result);
+                // Se dibujan los objetos de la lista obtenida de compilar
+                Sequences = MethodsDrawing.DrawFigure(result, graphic!);
 
-                //if (!runtimeError)
-                //{
-                //    MessageBoxButtons messageBoxButtons = MessageBoxButtons.RetryCancel;
+                if (Error.Wrong)
+                {
+                    MessageBoxButtons messageBoxButtons = MessageBoxButtons.RetryCancel;
 
-                //    DialogResult result1 = MessageBox.Show(Blender.ErrorMsg, $"!!{Blender.ErrorType} ERROR",
-                //        messageBoxButtons, MessageBoxIcon.Error);
+                    DialogResult result1 = MessageBox.Show(Error.Msg, $"!!{Error.TypeMsg} ERROR",
+                        messageBoxButtons, MessageBoxIcon.Error);
 
-                //    if (result1 == DialogResult.Retry)
-                //    {
-                //        graphic!.Clear(Color.White);
-                //        Input.Clear();
-                //        return;
-                //    }
-                //}
-
-                //else
-                //{
-                    Sequences = MethodsDrawing.DrawFigure(result, graphic!);
-
-                    if (Error.Wrong)
+                    if (result1 == DialogResult.Retry)
                     {
-                        MessageBoxButtons messageBoxButtons = MessageBoxButtons.RetryCancel;
-
-                        DialogResult result1 = MessageBox.Show(Error.Msg, $"!!{Error.TypeMsg} ERROR",
-                            messageBoxButtons, MessageBoxIcon.Error);
-
-                        if (result1 == DialogResult.Retry)
-                        {
-                            graphic!.Clear(Color.White);
-                            Input.Clear();
-                            return;
-                        }
+                        graphic!.Clear(Color.White);
+                        Input.Clear();
+                        return;
                     }
+                }
 
-                    if (Sequences.Count > 0)
+                // Esta lista "Sequences" guarda el resto de las secuencias infinita que no se hayan dibujado
+                // para poder controlar la parada del dibujo
+                if (Sequences.Count > 0)
+                {
+                    cancellationTokenSource = new();
+                    cancellationToken = cancellationTokenSource.Token;
+
+                    while (!cancellationToken.IsCancellationRequested)
                     {
-                        cancellationTokenSource = new();
-                        cancellationToken = cancellationTokenSource.Token;
-
-                        while (!cancellationToken.IsCancellationRequested)
-                        {
-                            Sequences = MethodsDrawing.DrawFigure(Sequences, graphic!);
-                            await Task.Delay(3);
-                        }
+                        Sequences = MethodsDrawing.DrawFigure(Sequences, graphic!);
+                        await Task.Delay(3);
                     }
-                //}
+                }
             }
             catch (Exception)
             {
@@ -150,14 +135,18 @@ namespace WallE
             enabledRun = false;
         }
 
+        // Este método se llama cuando se ejecuta el evento "click" del botón "Stop Drawing"
         private void StopDrawing_Click(object sender, EventArgs e)
         {
+            // Declara que el método 'async' de Run_Click debe dejar de ejecutarse
             cancellationTokenSource?.Cancel();
         }
 
         #endregion
 
         #region Resetear el textbox y el picturebox
+
+        // Este método se llama cuando se ejecuta el evento "click" del botón "Clear"
         private void Clear_Click(object sender, EventArgs e)
         {
             cancellationTokenSource?.Cancel();
@@ -168,6 +157,8 @@ namespace WallE
         #endregion
 
         #region Botones de movimiento
+
+        // Este método se llama cuando se ejecuta el evento "click" del botón "right"
         private void MoveRight_Click(object sender, EventArgs e)
         {
             if (result is not null && result.Count > 0)
@@ -180,7 +171,7 @@ namespace WallE
             }
         }
 
-
+        // Este método se llama cuando se ejecuta el evento "click" del botón "left"
         private void MoveLeft_Click(object sender, EventArgs e)
         {
             if (result is not null && result.Count > 0)
@@ -193,7 +184,7 @@ namespace WallE
             }
         }
 
-
+        // Este método se llama cuando se ejecuta el evento "click" del botón "up"
         private void MoveUp_Click(object sender, EventArgs e)
         {
             if (result is not null && result.Count > 0)
@@ -206,6 +197,7 @@ namespace WallE
             }
         }
 
+        // Este método se llama cuando se ejecuta el evento "click" del botón "down"
         private void MoveDown_Click(object sender, EventArgs e)
         {
             if (result is not null && result.Count > 0)
@@ -218,6 +210,7 @@ namespace WallE
             }
         }
 
+        // Este método se llama cuando se ejecuta el evento "click" del botón "Reset Coordinates"
         private void Reset_Click(object sender, EventArgs e)
         {
             if (result is not null && result.Count > 0)
@@ -230,6 +223,7 @@ namespace WallE
             }
         }
 
+        // Este método se llama cuando se ejecuta el evento "click" del botón "+"
         private void ZoomPlus_Click(object sender, EventArgs e)
         {
             if (result is not null && result.Count > 0)
@@ -242,6 +236,7 @@ namespace WallE
             }
         }
 
+        // Este método se llama cuando se ejecuta el evento "click" del botón "-"
         private void ZoomMinus_Click(object sender, EventArgs e)
         {
             if (result is not null && result.Count > 0)
@@ -257,6 +252,7 @@ namespace WallE
 
         #region Salvar y ver documentos creados
 
+        // Este método se llama cuando se ejecuta el evento "click" del botón "Save"
         private void Save_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new()
@@ -277,6 +273,8 @@ namespace WallE
                 writer.Close();
             }
         }
+
+        // Este método se llama cuando se ejecuta el evento "click" del botón "View Files"
         private void View_Files_Click(object sender, EventArgs e)
         {
             string path = Path.Join("..", Path.Join("..", Path.Join("..", "Files")));
@@ -303,6 +301,8 @@ namespace WallE
         #endregion
 
         #region Regresar a la ventana principal
+
+        // Este método se llama cuando se ejecuta el evento "click" del botón "Go Back"
         private void GoBack_Click(object sender, EventArgs e)
         {
             MessageBoxButtons messageBoxButtons = MessageBoxButtons.YesNo;

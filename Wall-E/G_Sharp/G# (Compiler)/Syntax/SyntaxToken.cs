@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Objeto Token
 public sealed class SyntaxToken
 {
     public SyntaxKind Kind { get; }
@@ -17,3 +18,5 @@ public sealed class SyntaxToken
         Value = value;
     }
 }
+
+#endregion

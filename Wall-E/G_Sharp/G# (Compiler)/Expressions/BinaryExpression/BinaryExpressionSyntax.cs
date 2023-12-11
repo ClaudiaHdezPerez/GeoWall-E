@@ -2,6 +2,7 @@ using System.Drawing;
 
 namespace G_Sharp;
 
+#region Expresiones binarias
 public class BinaryExpressionSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -14,6 +15,8 @@ public class BinaryExpressionSyntax : ExpressionSyntax
             return operation.ReturnType;
         }
     }
+
+    // Tipos de operaciones binarias
 
     private static readonly Dictionary<SyntaxKind, Func<object, object, SyntaxToken, ExpressionSyntax>> binaryOperation = new()
     {
@@ -32,6 +35,7 @@ public class BinaryExpressionSyntax : ExpressionSyntax
         [SyntaxKind.LessOrEqualToken]    = (left, right, operation) => new LessOrEqualOperation(left, right, operation)
     };
 
+    // Constructor
     public BinaryExpressionSyntax(
         ExpressionSyntax left, SyntaxToken operatorToken, ExpressionSyntax right
     )
@@ -41,6 +45,7 @@ public class BinaryExpressionSyntax : ExpressionSyntax
         Right = right;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         var left = Left.Evaluate(scope);
@@ -51,6 +56,7 @@ public class BinaryExpressionSyntax : ExpressionSyntax
         return operation.Evaluate(scope);
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         bool leftIsFine = Left.Check(scope);
@@ -66,3 +72,5 @@ public class BinaryExpressionSyntax : ExpressionSyntax
         return false;
     }
 }
+
+#endregion

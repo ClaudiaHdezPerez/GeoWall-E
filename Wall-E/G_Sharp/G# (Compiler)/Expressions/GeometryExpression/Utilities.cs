@@ -1,6 +1,10 @@
 ﻿namespace G_Sharp;
+
+// Métodos para cálculos algebraicos
 public static class Utilities
 {
+    #region Datos de una recta
+    // Devuelve dado un valor de x y la ecuación de una recta la coordenada y
     public static float PointInLine(float m, float n, float x)
     {
         var result = m * x + n;
@@ -13,6 +17,7 @@ public static class Utilities
         return result;
     }
 
+    // Devuelve los datos de la ecuación de una recta 
     public static (float, float) LineEquation(Points p1, Points p2)
     {
 
@@ -21,7 +26,10 @@ public static class Utilities
 
         return (m, n);
     }
+    #endregion
 
+    #region Intersección rayo circunferencia
+    // Determina el punto de intersección de un rayo (que parte del centro) con una circunferencia
     public static Points IntersectionCircle_Ray(Points center, Points ray_end, float radio, float m, float n)
     {
         double x_c = center.X;
@@ -48,7 +56,11 @@ public static class Utilities
 
         return new Points(0,0);
     }
+    #endregion
 
+    #region Segmento
+    
+    // Determina si un punto pertenece a un segmento
     public static bool IsInSegment(double x1, double x2, double x_point)
     {
         var errorRange = 0.5;
@@ -58,7 +70,11 @@ public static class Utilities
         double razon = (x_point - x1) / (x2 - x_point);
         return razon >= 0;
     }
+    #endregion
 
+    #region Distancias
+
+    // Determina la distancia entre dos puntos
     public static float DistanceBetweenPoints(Points p1, Points p2)
     {
         double x_1 = p1.X;
@@ -71,6 +87,19 @@ public static class Utilities
         return (float)distance;
     }
 
+    // Determina la distancia entre un punto y una recta
+    public static float DistancePointLine(Points point, Line line)
+    {
+        var enumerador = (float)Math.Abs(line.M * point.X - point.Y + line.N);
+        var denominador = (float)Math.Sqrt(Math.Pow(line.M, 2) + 1);
+
+        return enumerador / denominador;
+    }
+    #endregion
+
+    #region Ángulos
+
+    // Determina el ángulo entre dos vectores
     public static float AngleBetweenVectors(Points center, Points p1, Points p2)
     {
         (float, float) v1 = (p1.X - center.X, p1.Y - center.Y);
@@ -85,6 +114,7 @@ public static class Utilities
         return angle;
     }
 
+    // Determina en qué cuadrante está un punto
     public static int GetAngleQuadrant(Points center, float radio, Points point)
     {
         Points right = new(center.X + radio, center.Y);
@@ -102,12 +132,5 @@ public static class Utilities
         else
             return (point.Y > right.Y) ? 2 : 3;
     }
-
-    public static float DistancePointLine(Points point, Line line)
-    {
-        var enumerador = (float)Math.Abs(line.M * point.X - point.Y + line.N);
-        var denominador = (float)Math.Sqrt(Math.Pow(line.M, 2) + 1);
-
-        return enumerador / denominador;
-    }
+    #endregion
 }

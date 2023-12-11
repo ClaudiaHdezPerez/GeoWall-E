@@ -1,16 +1,19 @@
 namespace G_Sharp;
 
+#region Expresiones condicionales
 public sealed class ConditionalExpressionSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.ConditionalExpression;
+    public override string ReturnType => BodyTrue.ReturnType;
 
+    #region Constructor
     public SyntaxToken IfKeyword { get; }
     public ExpressionSyntax Condition { get; }
     public SyntaxToken ThenKeyword { get; }
     public ExpressionSyntax BodyTrue { get; }
     public SyntaxToken ElseKeyword { get; }
     public ExpressionSyntax BodyFalse { get; }
-    public override string ReturnType => BodyTrue.ReturnType;
+    
 
     public ConditionalExpressionSyntax(
         SyntaxToken ifKeyword, ExpressionSyntax condition, SyntaxToken thenKeyword, 
@@ -26,6 +29,9 @@ public sealed class ConditionalExpressionSyntax : ExpressionSyntax
 
     }
 
+    #endregion
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         var condition = Condition.Evaluate(scope);
@@ -43,6 +49,7 @@ public sealed class ConditionalExpressionSyntax : ExpressionSyntax
         return BodyTrue.Evaluate(scope);
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         var conditionIsFine = Condition.Check(scope);
@@ -68,3 +75,5 @@ public sealed class ConditionalExpressionSyntax : ExpressionSyntax
         return true;
     }
 }
+
+#endregion

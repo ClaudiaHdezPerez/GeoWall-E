@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación Igualdad
 public class EqualOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -9,6 +10,7 @@ public class EqualOperation : ExpressionSyntax
     public object Right { get; }
     public SyntaxToken OperationToken { get; }
 
+    // Constructor
     public EqualOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -16,6 +18,7 @@ public class EqualOperation : ExpressionSyntax
         OperationToken = operationToken;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -33,6 +36,7 @@ public class EqualOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         var leftType = SemanticChecker.GetType(Left);
@@ -54,3 +58,5 @@ public class EqualOperation : ExpressionSyntax
         return Left.Equals(Right) ? 1 : 0;
     }
 }
+
+#endregion

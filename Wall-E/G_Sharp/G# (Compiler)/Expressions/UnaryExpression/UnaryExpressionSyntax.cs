@@ -1,11 +1,13 @@
 namespace G_Sharp;
 
+#region Expresiones Unarias
 public sealed class UnaryExpressionSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.UnaryExpression;
-    public SyntaxToken OperatorToken { get; }
-    public ExpressionSyntax Operand { get; }
+    
     public override string ReturnType => "number";
+
+    // Operaciones unarias
 
     private static readonly Dictionary<SyntaxKind, Func<object, SyntaxToken, ExpressionSyntax>> unaryOperationEvaluation = new()
     {
@@ -14,12 +16,19 @@ public sealed class UnaryExpressionSyntax : ExpressionSyntax
         [SyntaxKind.NotKeyword] = (operand, operation) => new NotOperation(operand, operation)
     };
 
+    #region Constructor
+    public SyntaxToken OperatorToken { get; }
+    public ExpressionSyntax Operand { get; }
+
     public UnaryExpressionSyntax(SyntaxToken operatorToken, ExpressionSyntax operand)
     {
         OperatorToken = operatorToken;
         Operand = operand;
     }
 
+    #endregion
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         var operand = Operand.Evaluate(scope);
@@ -28,6 +37,7 @@ public sealed class UnaryExpressionSyntax : ExpressionSyntax
         return operation.Evaluate(scope);
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         bool operandIsFine = Operand.Check(scope);
@@ -40,3 +50,5 @@ public sealed class UnaryExpressionSyntax : ExpressionSyntax
         return false;
     }
 }
+
+#endregion

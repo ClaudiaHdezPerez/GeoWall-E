@@ -11,16 +11,20 @@ public static class ScopeSupplies
     public static Dictionary<int, object> RandomElements = new();
     public static Dictionary<int, object> RandomPoints = new();
 
+    // Relevancia para la función intersect
     private static readonly Dictionary<SyntaxKind, int> relevanceFigures = new()
     {
-        [SyntaxKind.PointToken] = 6,
-        [SyntaxKind.LineToken] = 5,
-        [SyntaxKind.SegmentToken] = 4,
-        [SyntaxKind.RayToken] = 3,
-        [SyntaxKind.CircleToken] = 2,
-        [SyntaxKind.ArcToken] = 1,
+        [SyntaxKind.PointToken]   = 60,
+        [SyntaxKind.LineToken]    = 50,
+        [SyntaxKind.SegmentToken] = 40,
+        [SyntaxKind.RayToken]     = 30,
+        [SyntaxKind.CircleToken]  = 20,
+        [SyntaxKind.ArcToken]     = 10,
     };
 
+    #region Funciones Predefinidas
+
+    // Circle()
     public static object CircleFunction(Scope scope, List<ExpressionSyntax> parameters)
     {   
         try
@@ -43,6 +47,7 @@ public static class ScopeSupplies
         
     }
 
+    // Point()
     internal static object PointFunction(Scope scope, List<ExpressionSyntax> parameters)
     {
         try
@@ -64,6 +69,7 @@ public static class ScopeSupplies
         }
     }
 
+    // Line()
     public static object LineFunction(Scope scope, List<ExpressionSyntax> parameters)
     {
         try
@@ -85,6 +91,7 @@ public static class ScopeSupplies
         }
     }
 
+    // Segment()
     public static object SegmentFunction(Scope scope, List <ExpressionSyntax> parameters)
     {
         try
@@ -106,6 +113,7 @@ public static class ScopeSupplies
         }
     }
 
+    // Ray()
     public static object RayFunction(Scope scope, List<ExpressionSyntax> parameters)
     {
         try
@@ -127,6 +135,7 @@ public static class ScopeSupplies
         }
     }
 
+    // arc()
     public static object ArcFunction(Scope scope, List<ExpressionSyntax> parameters)
     {
         try 
@@ -153,6 +162,7 @@ public static class ScopeSupplies
         
     }
 
+    // Measure()
     public static object MeasureFunction(Scope scope, List<ExpressionSyntax> parameters)
     {
         try
@@ -174,6 +184,7 @@ public static class ScopeSupplies
         }
     }
 
+    // Count()
     public static object CountFunction(Scope scope, List<ExpressionSyntax> parameters)
     {
         try
@@ -199,6 +210,7 @@ public static class ScopeSupplies
         }
     }
 
+    // Randoms()
     public static object RandomsFunction(Scope scope, List<ExpressionSyntax> list)
     {
         static object Randoms()
@@ -213,11 +225,15 @@ public static class ScopeSupplies
         return result;
     }
 
+    // Samples()
     internal static object SamplesFunction(Scope scope, List<ExpressionSyntax> list)
     {
         static object Samples()
         {
-            return ParsingSupplies.CreateRandomPoint();
+            var x = ParsingSupplies.CreateRandomsCoordinates(0, 1300);
+            var y = ParsingSupplies.CreateRandomsCoordinates(0, 1300);
+
+            return new Points(x, y);
         }
 
         var result = new InfiniteSequence(Samples, RandomPoints);
@@ -226,6 +242,7 @@ public static class ScopeSupplies
         return result;
     }
 
+    // Points()
     internal static object PointsFunction(Scope scope, List<ExpressionSyntax> list)
     {
         try
@@ -243,6 +260,7 @@ public static class ScopeSupplies
         }
     }
 
+    // Intersect()
     internal static object IntersectFunction(Scope scope, List<ExpressionSyntax> list)
     {
         try
@@ -270,5 +288,6 @@ public static class ScopeSupplies
         }
     }
 
-    
+    #endregion
 }
+

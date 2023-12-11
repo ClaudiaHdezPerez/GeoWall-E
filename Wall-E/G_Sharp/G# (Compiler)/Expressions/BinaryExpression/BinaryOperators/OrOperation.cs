@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación Or
 public class OrOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -9,6 +10,7 @@ public class OrOperation : ExpressionSyntax
     public object Right { get; }
     public SyntaxToken OperationToken { get; }
 
+    // Constructor
     public OrOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -16,10 +18,13 @@ public class OrOperation : ExpressionSyntax
         OperationToken = operationToken;
     }
 
+    // Revisión (siempre es true)
     public override bool Check(Scope scope)
     {
         return true;
     }
+
+    // Evaluación
 
     public override object Evaluate(Scope scope)
     {
@@ -47,3 +52,5 @@ public class OrOperation : ExpressionSyntax
         return (leftIsFalse && rightIsFalse) ? 0 : 1;
     }
 }
+
+#endregion

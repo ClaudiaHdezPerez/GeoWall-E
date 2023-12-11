@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación suma
 public class SumOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -15,6 +16,7 @@ public class SumOperation : ExpressionSyntax
     public object Right { get; }
     public SyntaxToken OperationToken { get; }
 
+    // Constructor
     public SumOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -22,6 +24,7 @@ public class SumOperation : ExpressionSyntax
         OperationToken = operationToken;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -56,6 +59,7 @@ public class SumOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -89,6 +93,7 @@ public class SumOperation : ExpressionSyntax
         }
     }
 
+    #region Suma de secuencias
     private object SumSequenceEvaluate(string type)
     {
         var seq1 = (SequenceExpressionSyntax)Left;
@@ -157,4 +162,8 @@ public class SumOperation : ExpressionSyntax
 
         return true;
     }
+
+    #endregion
 }
+
+#endregion

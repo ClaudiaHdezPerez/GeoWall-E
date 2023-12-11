@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace G_Sharp;
 
+#region Circle
 public sealed class Circle : Figure, IEquatable<Circle>
 {
     private static Dictionary<SyntaxKind, Func<Figure, Figure, FiniteSequence<object>>> intersections = new()
@@ -15,28 +16,35 @@ public sealed class Circle : Figure, IEquatable<Circle>
     };
 
     public override SyntaxKind Kind => SyntaxKind.CircleToken;
+    public override string ReturnType => "circle";
+
+    #region Constructor de la clase Circle
     public Points Center { get; }
     public float Diameter => Radius * 2;
     public float Radius => Measure.Value;
     public Measure Measure { get; }
-    public override string ReturnType => "circle";
 
+    // Constructor
     public Circle(Points center, Measure measure)
     {
         Center = center;
         Measure = measure;
     }
+    #endregion
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         return this;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         return true;
     }
 
+    // redefinición de Equals
     public bool Equals(Circle? other)
     {
         return Center.Equals(other!.Center) && Measure.Equals(other!.Measure);
@@ -45,6 +53,7 @@ public sealed class Circle : Figure, IEquatable<Circle>
     public override bool Equals(object? obj) => Equals(obj as Circle);
     public override int GetHashCode() => Center.GetHashCode();
 
+    // Obtener los puntos de una circunferencia
     public override SequenceExpressionSyntax PointsInFigure()
     {
         Dictionary<int, object> elements = new();
@@ -68,6 +77,7 @@ public sealed class Circle : Figure, IEquatable<Circle>
         return result;
     }
 
+    // Saber si un punto está en la circunferencia
     private float[] IsInCircle(float x)
     {
         float distance1 = (float)(Math.Sqrt(Math.Pow(Radius, 2) - Math.Pow(x - Center.X, 2))) + Center.Y;
@@ -77,6 +87,7 @@ public sealed class Circle : Figure, IEquatable<Circle>
         return result;
     }
 
+    #region Intersecciones
     public override FiniteSequence<object> Intersect(Figure figure)
     {
         return intersections[figure.Kind](this, figure);
@@ -146,4 +157,8 @@ public sealed class Circle : Figure, IEquatable<Circle>
 
         return new FiniteSequence<object>(list);
     }
+
+    #endregion
 }
+
+#endregion

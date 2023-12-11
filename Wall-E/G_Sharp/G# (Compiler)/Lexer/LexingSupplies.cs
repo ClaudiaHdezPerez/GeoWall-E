@@ -4,6 +4,8 @@ namespace G_Sharp;
 
 public static class LexingSupplies
 {
+    #region Datos del lexer
+
     private static readonly Dictionary<string, SyntaxKind> keywordKind = new()
     {
         ["and"]       = SyntaxKind.AndKeyword,
@@ -70,6 +72,9 @@ public static class LexingSupplies
         return SyntaxKind.IdentifierToken;
     }
 
+    #endregion
+
+    #region Métodos para lexear operadores de dos caracteres
     private static (SyntaxToken, int) LexGreaterThanChar(int pos, int line, char NextCurrent)
     {
         if (NextCurrent == '=')
@@ -98,4 +103,6 @@ public static class LexingSupplies
         Error.SetError("LEXICAL", $"Line '{line}' : Unexpected character '!'");
         return (new SyntaxToken(SyntaxKind.ErrorToken!, line, pos, "", null!), ++pos);
     }
+
+    #endregion
 }

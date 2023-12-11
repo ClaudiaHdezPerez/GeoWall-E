@@ -24,13 +24,17 @@ public static class MethodsDrawing
         [SyntaxKind.ArcToken] = DrawingArc,
         [SyntaxKind.SequenceExpression] = DrawingSequence,
     };
+
+    #region Pintar figuras
+    // Método central donde se llama al método específico en dependencia del objeto
     public static List<Draw> DrawFigure(List<Draw> geometries, Graphics graphic)
     {
         Sequences = new();
+
+        // Se iteran por los elementos de la lista de elementos a pintar y en dependencia del tipo se llama al método correspondiente
         for (int i = 0; i < geometries.Count; i++)
         {
             (ExpressionSyntax expression, Color color, string msg) = geometries[i].Geometries;
-
 
             try
             {
@@ -49,6 +53,7 @@ public static class MethodsDrawing
 
         return Sequences;
     }
+    #endregion
 
     #region Pintar puntos 
     public static void DrawingPoint(ExpressionSyntax figure, Graphics graphics, Color color, string msg)
@@ -168,6 +173,7 @@ public static class MethodsDrawing
 
         if (sequence is FiniteSequence<object> finite)
         {
+            // Se iteran por los elementos de la secuencia
             foreach (var item in finite.Elements)
             {
                 var figure = (ExpressionSyntax)item;
@@ -183,11 +189,11 @@ public static class MethodsDrawing
     {
         var sequence = (InfiniteSequence)expression;
 
+        // Se pinta el primer elemento de la secuencia y se devuele el resto a partir del segundo
         var figure = (ExpressionSyntax)sequence[0];
         var drawToken = new SyntaxToken(SyntaxKind.DrawKeyword,0, 0, "draw", "");
         var rest = sequence.RestOfSequence(1);
-        var draw = new Draw(drawToken, rest, color, msg);
-        //Sequences.Add((sequence.RestOfSequence(1), color, msg));
+        var draw = new Draw(drawToken, rest, msg);
         Sequences.Add(draw);
 
         if (drawings.TryGetValue(figure.Kind, out Action<ExpressionSyntax, Graphics, Color, string>? value))

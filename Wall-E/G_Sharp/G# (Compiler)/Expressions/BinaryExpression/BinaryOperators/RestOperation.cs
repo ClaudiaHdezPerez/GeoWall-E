@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación resta
 public class RestOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -10,6 +11,7 @@ public class RestOperation : ExpressionSyntax
     public object Right { get; }
     public SyntaxToken OperationToken { get; }
 
+    // Constructor
     public RestOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -22,6 +24,7 @@ public class RestOperation : ExpressionSyntax
         "number", "measure", "undefined"
     };
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -48,6 +51,7 @@ public class RestOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -76,3 +80,5 @@ public class RestOperation : ExpressionSyntax
         }
     }
 }
+
+#endregion

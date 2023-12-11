@@ -2,13 +2,17 @@ using System.Xml.Linq;
 
 namespace G_Sharp;
 
+#region Asignación de constantes
 public sealed class ConstantAssignmentSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.ConstantAssignmentExpression;
+    public override string ReturnType => "void expression";
+
+    #region Constructor
     public SyntaxToken IdentifierToken { get; }
     public SyntaxToken AssignmentToken { get; }
     public ExpressionSyntax Expression { get; }
-    public override string ReturnType => "void expression";
+    
 
     public ConstantAssignmentSyntax(
         SyntaxToken identifierToken, SyntaxToken assignmentToken, 
@@ -20,6 +24,9 @@ public sealed class ConstantAssignmentSyntax : ExpressionSyntax
         Expression = expression;
     }
 
+    #endregion
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         string name = IdentifierToken.Text;
@@ -39,6 +46,7 @@ public sealed class ConstantAssignmentSyntax : ExpressionSyntax
         return "";
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string name = IdentifierToken.Text;
@@ -68,3 +76,5 @@ public sealed class ConstantAssignmentSyntax : ExpressionSyntax
         return true;
     }
 }
+
+#endregion

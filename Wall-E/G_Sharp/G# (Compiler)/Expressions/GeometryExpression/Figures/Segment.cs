@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace G_Sharp;
 
+#region Segment
 public sealed class Segment : Figure, IEquatable<Segment>
 {
     private static Dictionary<SyntaxKind, Func<Figure, Figure, FiniteSequence<object>>> intersections = new()
@@ -16,11 +17,14 @@ public sealed class Segment : Figure, IEquatable<Segment>
         [SyntaxKind.ArcToken] = IntersectArc,
     };
     public override SyntaxKind Kind => SyntaxKind.SegmentToken;
+    public override string ReturnType => "segment";
+
+    #region Constructor
     public Points P1 { get; }
     public Points P2 { get; }
     public float M { get; }
     public float N { get; }
-    public override string ReturnType => "segment";
+    
 
     public Segment(Points p1, Points p2)
     {
@@ -30,16 +34,21 @@ public sealed class Segment : Figure, IEquatable<Segment>
         (M, N) = Utilities.LineEquation(P1, P2);
     }
 
+    #endregion
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         return this;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         return true;
     }
 
+    // Redefinición de equals
     public bool Equals(Segment? other)
     {
         var thisMeasure = Utilities.DistanceBetweenPoints(P1, P2);
@@ -50,6 +59,7 @@ public sealed class Segment : Figure, IEquatable<Segment>
     public override bool Equals(object? obj) => Equals(obj as Segment);
     public override int GetHashCode() => P1.GetHashCode();
 
+    // Puntos en un segmento
     public override SequenceExpressionSyntax PointsInFigure()
     {
         Dictionary<int, object> elements = new();
@@ -75,6 +85,7 @@ public sealed class Segment : Figure, IEquatable<Segment>
         return result;
     }
 
+    #region Intersección
     public override FiniteSequence<object> Intersect(Figure figure)
     {
         return intersections[figure.Kind](this, figure);
@@ -154,4 +165,8 @@ public sealed class Segment : Figure, IEquatable<Segment>
 
         return new FiniteSequence<object>(list);
     }
+
+    #endregion
 }
+
+#endregion

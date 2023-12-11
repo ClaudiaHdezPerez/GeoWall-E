@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace G_Sharp;
 
+#region Ray
 public sealed class Ray : Figure, IEquatable<Ray>
 {
     private static Dictionary<SyntaxKind, Func<Figure, Figure, FiniteSequence<object>>> intersections = new()
@@ -16,12 +17,15 @@ public sealed class Ray : Figure, IEquatable<Ray>
         [SyntaxKind.ArcToken] = IntersectArc,
     };
     public override SyntaxKind Kind => SyntaxKind.RayToken;
+    public override string ReturnType => "ray";
+
+    #region Constructor
     public Points P1 { get; }
     public Points P2 { get; }
     public Points End { get; }
     public float M { get; }
     public float N { get; }
-    public override string ReturnType => "ray";
+    
 
     public Ray(Points p1, Points p2)
     {
@@ -58,16 +62,21 @@ public sealed class Ray : Figure, IEquatable<Ray>
         End = new Points(x_end, y_end);
     }
 
+    #endregion
+
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         return this;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         return true;
     }
 
+    // Redefinición de equals
     public bool Equals(Ray? other)
     {
         var sameLine = M.Equals(other!.M) && N.Equals(other!.N);
@@ -77,6 +86,8 @@ public sealed class Ray : Figure, IEquatable<Ray>
     public override bool Equals(object? obj) => Equals(obj as Ray);
     public override int GetHashCode() => P1.GetHashCode();
 
+
+    // Puntos en el rayo
     public override SequenceExpressionSyntax PointsInFigure()
     {
         Dictionary<int, object> elements = new();
@@ -102,6 +113,7 @@ public sealed class Ray : Figure, IEquatable<Ray>
         return result;
     }
 
+    #region Intersección
     public override FiniteSequence<object> Intersect(Figure figure)
     {
         return intersections[figure.Kind](this, figure);
@@ -134,4 +146,8 @@ public sealed class Ray : Figure, IEquatable<Ray>
         Segment raySegment = new(ray.P1, ray.End);
         return raySegment.Intersect(arc);
     }
+
+    #endregion
 }
+
+#endregion

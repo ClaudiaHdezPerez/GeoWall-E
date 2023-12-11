@@ -6,12 +6,12 @@ internal sealed class Lexer
 {
     private int line = 1;
     private int position = 0;
-
-    private string Text { get; }
-    private Dictionary<char, Func<SyntaxToken>> LexSpecialChars { get; }
     private char Current => LookAhead(0);
     private char NextCurrent => LookAhead(1);
 
+    #region Constructor de la clase Lexer
+    private string Text { get; }
+    private Dictionary<char, Func<SyntaxToken>> LexSpecialChars { get; }
     public Lexer(string text)
     {
         Text = text;
@@ -24,8 +24,9 @@ internal sealed class Lexer
             ['/']  = LexComments,
         };
     }
+    #endregion
 
-
+    #region Métodos para recorrer 
     private char LookAhead(int offset)
     {
         var index = position + offset;
@@ -39,7 +40,9 @@ internal sealed class Lexer
     {
         position++;
     }
+    #endregion
 
+    #region Método para lexear caracter a caracter
     public SyntaxToken Lex()
     {
         if (position >= Text!.Length)
@@ -63,7 +66,12 @@ internal sealed class Lexer
         Error.SetError("LEXICAL", $"Line '{line}': Unexpected character '{Current}'");
         return new SyntaxToken(SyntaxKind.ErrorToken!, line, position++, Text![position - 1].ToString(), null!);
     }
+    #endregion
 
+
+    #region Métodos para lexear cada tipo de token
+    
+    // Lexear strings
     private SyntaxToken LexStrings()
     {
         int start = position;
@@ -100,6 +108,7 @@ internal sealed class Lexer
         return new SyntaxToken(SyntaxKind.StringToken, line, start, token, value);
     }
 
+    // Lexear números
     private SyntaxToken LexNumbers()
     {
         int start = position;
@@ -123,6 +132,7 @@ internal sealed class Lexer
         return new SyntaxToken(SyntaxKind.NumberToken, line, start, token, value);
     }
 
+    // Lexear puntos suspensivos
     private SyntaxToken LexSuspensePoints()
     {
         if (LookAhead(1) == '.' && LookAhead(2) == '.')
@@ -132,6 +142,7 @@ internal sealed class Lexer
         return new SyntaxToken(SyntaxKind.ErrorToken, line, position++, "", null!);
     }
 
+    // Lexear comentarios
     private SyntaxToken LexComments()
     {
         if (Current == '/' && NextCurrent == '/')
@@ -151,6 +162,7 @@ internal sealed class Lexer
         return token;
     }
 
+    // Lexear identificadores
     private SyntaxToken LexIdentifiers()
     {
         int start = position;
@@ -175,6 +187,7 @@ internal sealed class Lexer
         return new SyntaxToken(kind, line, start, token, null!);
     }
 
+    // Lexear espacios en blanco
     private SyntaxToken LexWhitesSpace()
     {
         int start = position;
@@ -187,12 +200,14 @@ internal sealed class Lexer
         return new SyntaxToken(SyntaxKind.WhitespaceToken, line, start, token, null!);
     }
 
+    // Lexear fin de línea
     private SyntaxToken LexEndOfLine()
     {
         line++;
         return new SyntaxToken(SyntaxKind.WhitespaceToken, line, position++, " ", null!);
     }
 
+    //  Lexear grupos de caracteres
     private bool IsGroupOfChars(out SyntaxToken token)
     {   
         token = null!;
@@ -213,4 +228,6 @@ internal sealed class Lexer
 
         return true;
     }
+
+    #endregion
 }

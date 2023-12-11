@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+# region Tipos
 public enum SyntaxKind
 {
     // tokens
@@ -71,3 +72,5 @@ public enum SyntaxKind
     SequenceKeyword,
     ImportKeyword
 }
+
+#endregion

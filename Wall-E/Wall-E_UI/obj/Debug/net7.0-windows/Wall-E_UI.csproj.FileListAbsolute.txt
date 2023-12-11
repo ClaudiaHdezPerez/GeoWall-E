@@ -44,3 +44,6 @@ D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\refint\Wall-E_UI.dll
 D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.pdb
 D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.genruntimeconfig.cache
 D:\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\ref\Wall-E_UI.dll
+C:\Users\Claudia\Documents\GitHub\GeoWall-E\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.dll
+C:\Users\Claudia\Documents\GitHub\GeoWall-E\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\refint\Wall-E_UI.dll
+C:\Users\Claudia\Documents\GitHub\GeoWall-E\Wall-E\Wall-E_UI\obj\Debug\net7.0-windows\Wall-E_UI.pdb

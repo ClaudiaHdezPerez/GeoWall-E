@@ -16,6 +16,8 @@ internal sealed class Parser
     private int position;
 
     private SyntaxToken Current => LookAhead(0);
+
+    #region Constructor de clase
     public bool ContainsError { get; }
     private Dictionary<SyntaxKind, Func<ExpressionSyntax>> tokensEvaluation { get; }
     private Dictionary<SyntaxKind, Func<ExpressionSyntax>> assignmentEvaluation { get; }
@@ -74,6 +76,9 @@ internal sealed class Parser
         };
     }
 
+    #endregion
+
+    #region Métodos para recorrer
     private SyntaxToken LookAhead(int offset)
     {
         int index = position + offset;
@@ -87,6 +92,11 @@ internal sealed class Parser
         return current;
     }
 
+    #endregion
+
+    #region Métodos generales para parsear
+    
+   // Parseo principal
     public SyntaxTree Parse()
     {
         List<ExpressionSyntax> expressions = new();
@@ -112,16 +122,6 @@ internal sealed class Parser
         return new SyntaxTree(Error.Wrong, expressions, semicolonToken);
     }
 
-    private SyntaxToken MatchToken(SyntaxKind kind, string expectedText)
-    {
-        if (Current.Kind == kind)
-            return NextToken();
-
-        Error.SetError("SYNTAX", $"Line '{Current.Line}' : Unexpected token ' {Current.Text} ', expected ' {expectedText} '");
-        kind = SyntaxKind.ErrorToken;
-        return new SyntaxToken(kind, 1, Current.Position, "", 0.0);
-    }
-
     public ExpressionSyntax ParseExpression()
     {
         return ParseAssignmentExpression();
@@ -135,12 +135,13 @@ internal sealed class Parser
         return ParseBinaryExpression();
     }
 
+    // Parsear una expresióon binaria
     private ExpressionSyntax ParseBinaryExpression(int parentPrecedence = 0)
     {
         ExpressionSyntax left;
         var unaryOperatorPrecedent = Current.Kind.GetUnaryOperatorPrecedence();
-        
-        if (unaryOperatorPrecedent != 0 && unaryOperatorPrecedent >= parentPrecedence) 
+
+        if (unaryOperatorPrecedent != 0 && unaryOperatorPrecedent >= parentPrecedence)
         {
             var operatorToken = NextToken();
             var operand = ParseBinaryExpression(unaryOperatorPrecedent);
@@ -163,11 +164,12 @@ internal sealed class Parser
         return left;
     }
 
+    // Parsear una expresión primaria
     private ExpressionSyntax ParsePrimaryExpression()
     {
         if (tokensEvaluation.TryGetValue(Current.Kind, out Func<ExpressionSyntax>? value))
             return value();
-            
+
         var semicolonToken = MatchToken(SyntaxKind.SemicolonToken, ";");
 
         if (semicolonToken.Kind == SyntaxKind.ErrorToken)
@@ -176,6 +178,11 @@ internal sealed class Parser
         return new LiteralExpressionSyntax(semicolonToken);
     }
 
+    #endregion
+
+    #region Métodos específicos para parsear 
+    
+    // Parsear import
     private ExpressionSyntax ImportParsing()
     {
         var import = NextToken();
@@ -218,35 +225,33 @@ internal sealed class Parser
         
     }
 
+    // Parsear restore
     private ExpressionSyntax RestoreParsing()
     {
         var restoreToken = NextToken();
-        if (Colors.ColorDraw!.Count < 1)
-        {
-            Error.SetError("SYNTAX", $"Line '{restoreToken.Line}' : Default color can't be restored");
-            return new ErrorExpressionSyntax();
-        }
-
-        Colors.ColorDraw!.Pop();
-        return new VoidExpressionSyntax();
+        return new Restore(restoreToken);
     }
 
+    // Parsear color
     private ExpressionSyntax ColorParsing()
     {
-        NextToken();
-        var color = MatchToken(SyntaxKind.ColorToken, "color");
-        if (color.Kind == SyntaxKind.ErrorToken)
+        var token = NextToken();
+        var colorKeyword = MatchToken(SyntaxKind.ColorToken, "color");
+
+        if (colorKeyword.Kind == SyntaxKind.ErrorToken)
             return new ErrorExpressionSyntax();
-        
-        Colors.ColorDraw!.Push(Colors._Colors[color.Value.ToString()!]);
-        return new VoidExpressionSyntax();
+
+        var color = Colors._Colors[colorKeyword.Value.ToString()!];
+        return new Colors(color);
     }
 
+    // Parsear keywords
     private ExpressionSyntax MathKeywordParsing()
     {
         return AssignmentIdentifierEval();
     }
 
+    // Parsear paréntesis
     private ParenthesizedExpressionSyntax ParenthesizedExpressionParsing()
     {
         var left = NextToken();
@@ -255,6 +260,8 @@ internal sealed class Parser
 
         return new ParenthesizedExpressionSyntax(left, expression, right);
     }
+
+    // Parsear secuencias
 
     private SequenceExpressionSyntax SequenceExpressionParsing()
     {
@@ -295,6 +302,7 @@ internal sealed class Parser
         return new FiniteSequence<ExpressionSyntax>(elements);
     }
 
+    // Parsear Let-in
     private ExpressionSyntax LetInExpressionParsing()
     {
         var letToken = NextToken();
@@ -334,6 +342,7 @@ internal sealed class Parser
         return new LetInExpressionSyntax(letToken, instructions, inToken, body);
     }
 
+    // Parsear condicionales
     private ExpressionSyntax ConditionalExpressionParsing()
     {
         var ifKeyword = NextToken();
@@ -348,6 +357,7 @@ internal sealed class Parser
         return new ConditionalExpressionSyntax(ifKeyword, condition, thenKeyword, bodyTrue, elseKeyword, bodyFalse);
     }
 
+    // Parsear identificadores
     private ExpressionSyntax IdentifierParsing()
     {
         var identifierToken = NextToken();
@@ -381,6 +391,7 @@ internal sealed class Parser
         return new ConstantExpressionSyntax(identifierToken);
     }
 
+    // Parsear strings
     private ExpressionSyntax StringParsing()
     {
         var stringToken = MatchToken(SyntaxKind.StringToken, "string");
@@ -391,6 +402,7 @@ internal sealed class Parser
         return new LiteralExpressionSyntax(stringToken);
     }
 
+    // Parsear números
     private ExpressionSyntax NumberParsing()
     {
         var numberToken = MatchToken(SyntaxKind.NumberToken, "number");
@@ -401,6 +413,7 @@ internal sealed class Parser
         return new LiteralExpressionSyntax(numberToken);
     }
 
+    // Parsear draw
     private ExpressionSyntax DrawParsing()
     {
         var drawToken = NextToken();
@@ -424,9 +437,10 @@ internal sealed class Parser
             msg = NextToken().Value.ToString()!;
         
 
-        return new Draw(drawToken, value, Colors.ColorDraw!.Peek(), msg);  
+        return new Draw(drawToken, value, msg);  
     }
 
+    // Parsear geométricas
     private ExpressionSyntax AssignmentGeometryParsing()
     {
         var typeGeometry = NextToken();
@@ -466,10 +480,11 @@ internal sealed class Parser
         {
             var name = MatchToken(SyntaxKind.IdentifierToken, "constant");
             var operatorToken = new SyntaxToken(SyntaxKind.AssignmentToken, 1, 0, "=", "");
-            return ParsingSupplies.GeometricKeywordsEvaluation[typeGeometry.Text](name, operatorToken);
+            return ParsingSupplies.GeometricKeywordsParsing[typeGeometry.Text](name, operatorToken);
         }
     }
 
+    // Parsear asignaciones
     private ExpressionSyntax AssignmentIdentifierEval()
     {
         if (LookAhead(1).Kind == SyntaxKind.OpenParenthesisToken)
@@ -569,6 +584,22 @@ internal sealed class Parser
         return ParseBinaryExpression();
     }
 
+    #endregion
+
+    #region Métodos auxiliares
+
+    // Matchear tokens
+    private SyntaxToken MatchToken(SyntaxKind kind, string expectedText)
+    {
+        if (Current.Kind == kind)
+            return NextToken();
+
+        Error.SetError("SYNTAX", $"Line '{Current.Line}' : Unexpected token ' {Current.Text} ', expected ' {expectedText} '");
+        kind = SyntaxKind.ErrorToken;
+        return new SyntaxToken(kind, 1, Current.Position, "", 0.0);
+    }
+
+    // Obtener parámetros
     private List<ExpressionSyntax> GetFunctionParams(string name)
     {
         var kind = Current.Kind;
@@ -608,4 +639,6 @@ internal sealed class Parser
 
         return parameters;
     }
+
+    #endregion
 }

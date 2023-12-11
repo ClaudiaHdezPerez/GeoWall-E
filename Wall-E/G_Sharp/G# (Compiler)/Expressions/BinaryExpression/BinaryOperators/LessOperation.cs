@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación Menor
 public class LessOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -9,6 +10,7 @@ public class LessOperation : ExpressionSyntax
     public object Right { get; }
     public SyntaxToken OperationToken { get; }
 
+    // Constructor
     public LessOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -21,6 +23,7 @@ public class LessOperation : ExpressionSyntax
         "number", "measure", "undefined"
     };
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -47,6 +50,8 @@ public class LessOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
+
     public override object Evaluate(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -72,3 +77,5 @@ public class LessOperation : ExpressionSyntax
         }
     }
 }
+
+#endregion

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace G_Sharp;
 
+#region Secuencias infinitas
 public sealed class InfiniteSequence : SequenceExpressionSyntax
 {
     public override long Count => -1;
-    public Func<object> Func { get; }
-    private Dictionary<int, object> Elements { get; }
 
     public string valuesType = "undefined";
     public override string ValuesType => valuesType;
@@ -26,12 +25,20 @@ public sealed class InfiniteSequence : SequenceExpressionSyntax
         }
     }
 
+    #region Constructor
+
+    public Func<object> Func { get; }
+    private Dictionary<int, object> Elements { get; }
+
     public InfiniteSequence(Func<object> func, Dictionary<int, object> elements)
     {
         Func = func;
         Elements = elements;
     }
 
+    #endregion
+
+    // Revisión
     public override bool Check(Scope scope)
     {
         if (Elements.Count == 0) return true;
@@ -47,11 +54,14 @@ public sealed class InfiniteSequence : SequenceExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         return null!;
     }
 
+
+    // Obtener el resto de una secuencia a partir de un n
     public override SequenceExpressionSyntax RestOfSequence(int startIndex)
     {
         for (int i = 0; i < startIndex; i++)
@@ -60,6 +70,7 @@ public sealed class InfiniteSequence : SequenceExpressionSyntax
         return new InfiniteSequence(Func, Elements);
     }
 
+    #region Crear Secuencias infinitas
     public static object CreateInifniteSequence(InfiniteSequence sequence, Dictionary<int, object> values)
     {
         var func = sequence.Func;
@@ -72,4 +83,8 @@ public sealed class InfiniteSequence : SequenceExpressionSyntax
         Func<object> func = () => first++;
         return new InfiniteSequence(func, values);
     }
+
+    #endregion
 }
+
+#endregion

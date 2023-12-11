@@ -7,12 +7,14 @@ using System.Xml.Linq;
 
 namespace G_Sharp;
 
+#region Asignación múltiple
 public sealed class MultipleAssignmentSyntax : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.ConstantAssignmentExpression;
 
     public override string ReturnType => "void expression";
 
+    #region Constructor
     public List<SyntaxToken> Identifiers { get; }
     public SyntaxToken AssignmentToken { get; }
     public ExpressionSyntax Expression { get; }
@@ -27,6 +29,9 @@ public sealed class MultipleAssignmentSyntax : ExpressionSyntax
         Expression = expression;
     }
 
+    #endregion
+
+    // Revisión
     public override bool Check(Scope scope)
     {
         foreach (var item in Identifiers)
@@ -56,6 +61,7 @@ public sealed class MultipleAssignmentSyntax : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         SequenceExpressionSyntax sequence = (SequenceExpressionSyntax) Expression.Evaluate(scope);
@@ -110,3 +116,5 @@ public sealed class MultipleAssignmentSyntax : ExpressionSyntax
         return "";
     }
 }
+
+#endregion

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace G_Sharp;
 
+#region Interface que define las secuencias
+
 public abstract class SequenceExpressionSyntax : ExpressionSyntax, IEquatable<SequenceExpressionSyntax>
 {
     public override SyntaxKind Kind => SyntaxKind.SequenceExpression;
@@ -51,6 +53,7 @@ public abstract class SequenceExpressionSyntax : ExpressionSyntax, IEquatable<Se
         return Count.GetHashCode();
     }
 
+    // Obtener el tipo interno de una secuencia
     public static string GetInternalTypeOfSequence(SequenceExpressionSyntax sequence)
     {
         var seqType = sequence.ValuesType;
@@ -67,3 +70,5 @@ public abstract class SequenceExpressionSyntax : ExpressionSyntax, IEquatable<Se
         return seqInternedType;
     }
 }
+
+#endregion

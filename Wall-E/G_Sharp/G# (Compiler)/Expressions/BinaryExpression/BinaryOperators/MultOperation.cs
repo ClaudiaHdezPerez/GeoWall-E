@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación Multiplicación
 public class MultOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -19,6 +20,7 @@ public class MultOperation : ExpressionSyntax
     public object Right { get; }
     public SyntaxToken OperationToken { get; }
 
+    // Constructor
     public MultOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -31,6 +33,7 @@ public class MultOperation : ExpressionSyntax
         "number", "measure", "undefined"
     };
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -59,6 +62,7 @@ public class MultOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -94,3 +98,4 @@ public class MultOperation : ExpressionSyntax
         }
     }
 }
+#endregion

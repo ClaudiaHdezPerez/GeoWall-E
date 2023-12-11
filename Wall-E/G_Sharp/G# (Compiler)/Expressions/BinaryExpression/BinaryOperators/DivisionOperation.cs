@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación División
 public class DivisionOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -14,6 +15,7 @@ public class DivisionOperation : ExpressionSyntax
         "number", "measure", "undefined"
     };
 
+    // Constructor
     public DivisionOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -21,6 +23,7 @@ public class DivisionOperation : ExpressionSyntax
         OperationToken = operationToken;
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -47,6 +50,7 @@ public class DivisionOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -82,3 +86,5 @@ public class DivisionOperation : ExpressionSyntax
         }
     }
 }
+
+#endregion

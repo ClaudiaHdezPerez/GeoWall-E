@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace G_Sharp;
 
+#region Secuencias Finitas
 public sealed class FiniteSequence<T> : SequenceExpressionSyntax
 {
-    public List<T> Elements { get; }
+    
 
     public override long Count => Elements.Count;
     public override string ValuesType
@@ -22,12 +23,16 @@ public sealed class FiniteSequence<T> : SequenceExpressionSyntax
 
     public override object this[int index] => Elements[index]!;
 
+    #region Constructor
+    public List<T> Elements { get; }
     public FiniteSequence(List<T> elements)
     {
         Elements = elements;
     }
 
+    #endregion
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         List<object> values = new();
@@ -40,6 +45,7 @@ public sealed class FiniteSequence<T> : SequenceExpressionSyntax
         return new FiniteSequence<object>(values);
     }
 
+    // Revisión
     public override bool Check(Scope scope)
     {
         var elements = Elements as List<ExpressionSyntax>;
@@ -82,6 +88,7 @@ public sealed class FiniteSequence<T> : SequenceExpressionSyntax
         return true;
     }
 
+    // Obtener el resto de una secuencia a partir de un n
     public override SequenceExpressionSyntax RestOfSequence(int startIndex)
     {
         List<object> elements = new();
@@ -92,3 +99,5 @@ public sealed class FiniteSequence<T> : SequenceExpressionSyntax
         return new FiniteSequence<object>(elements);
     }
 }
+
+#endregion

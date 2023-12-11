@@ -6,6 +6,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace G_Sharp;
 
+#region Evaluación
 public static class Evaluator
 {
     public static readonly List<object> DefaultFalseValues = new() {
@@ -17,3 +18,5 @@ public static class Evaluator
         return  node.Evaluate(scope);
     }
 }
+
+#endregion

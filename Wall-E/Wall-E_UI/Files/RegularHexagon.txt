@@ -1,0 +1,28 @@
+regularHexagon(p,m) =
+    let
+        point p2;
+        l1 = line(p,p2);
+        c1 = circle(p,m); 
+        i1,i2,_ = intersect(l1,c1);
+        c2 = circle(i1,m);
+        c3 = circle(i2,m);
+        i3,i4,_ = intersect(c2,c1);
+        i5,i6,_ = intersect(c3,c1);
+        draw i1 "a";
+        draw i2 "b";
+        draw i3 "c";
+        draw i4 "d";
+        draw i5 "e";
+        draw i6 "f";
+    in {i6,i3,i1,i4,i5,i2};
+
+
+pu1 = point(150,0);
+pu2 = point(0,0);
+m = measure(pu1,pu2);
+
+a, b, c, d, e, f, _ = regularHexagon(pu1, m);
+   
+draw {
+segment(a, b), segment(b, c), segment(c, d), segment(d, e),
+segment(e, f), segment(f, a)};

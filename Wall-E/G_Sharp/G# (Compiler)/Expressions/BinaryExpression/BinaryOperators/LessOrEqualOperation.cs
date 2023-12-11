@@ -1,5 +1,6 @@
 namespace G_Sharp;
 
+#region Operación Menor o igual
 public class LessOrEqualOperation : ExpressionSyntax
 {
     public override SyntaxKind Kind => SyntaxKind.BinaryExpression;
@@ -9,6 +10,7 @@ public class LessOrEqualOperation : ExpressionSyntax
     public object Right { get; }
     public SyntaxToken OperationToken { get; }
 
+    // Constructor
     public LessOrEqualOperation(object left, object right, SyntaxToken operationToken)
     {
         Left = left;
@@ -20,6 +22,8 @@ public class LessOrEqualOperation : ExpressionSyntax
     {
         "number", "measure", "undefined"
     };
+
+    // Revisión
 
     public override bool Check(Scope scope)
     {
@@ -47,6 +51,7 @@ public class LessOrEqualOperation : ExpressionSyntax
         return true;
     }
 
+    // Evaluación
     public override object Evaluate(Scope scope)
     {
         string leftType = SemanticChecker.GetType(Left);
@@ -74,3 +79,5 @@ public class LessOrEqualOperation : ExpressionSyntax
         }
     }
 }
+
+#endregion
